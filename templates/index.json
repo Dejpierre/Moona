@@ -1,0 +1,643 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_jVaWmY": {
+      "type": "hero",
+      "blocks": {
+        "text_YLPk4p": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h1>Bien plus qu’une bougie,<br/>un rituel sensoriel.</h1>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground-heading)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_H9gpTf": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop all",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button-secondary",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_YLPk4p",
+        "button_H9gpTf"
+      ],
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/ChatGPT_Image_23_janv._2026_20_26_19.png",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "space-between",
+        "vertical_alignment": "flex-end",
+        "align_baseline": true,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "flex-start",
+        "gap": 24,
+        "section_width": "page-width",
+        "section_height": "full-screen",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "toggle_overlay": false,
+        "overlay_color": "#12121266",
+        "overlay_style": "solid",
+        "gradient_direction": "to bottom",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 100,
+        "padding-block-end": 72
+      }
+    },
+    "tsapb_ce7789ea_kFTq8j": {
+      "type": "tsapb-ce7789ea",
+      "blocks": {
+        "icon_fbgL8X": {
+          "type": "icon",
+          "settings": {
+            "icon_type": "upload",
+            "icon": "none",
+            "font_awesome": "",
+            "custom_icon": "shopify://shop_images/cycle-day.svg",
+            "icon_title": "Choisi ton moment",
+            "icon_description": "Matin, journée ou soir."
+          }
+        },
+        "icon_x9NziN": {
+          "type": "icon",
+          "settings": {
+            "icon_type": "upload",
+            "icon": "none",
+            "font_awesome": "",
+            "custom_icon": "shopify://shop_images/journee-symbol-bordeau.svg",
+            "icon_title": "Allume ta bougie",
+            "icon_description": "Chaque senteur est adapté au moment choisi"
+          }
+        },
+        "icon_XmDENx": {
+          "type": "icon",
+          "settings": {
+            "icon_type": "upload",
+            "icon": "none",
+            "font_awesome": "",
+            "custom_icon": "shopify://shop_images/soir-symbol-bordeau_84c567c8-6177-4d47-a302-fc3d7e18e40a.svg",
+            "icon_title": "Ecoute ton rituel",
+            "icon_description": "Laisse toi guidé par Moona."
+          }
+        }
+      },
+      "block_order": [
+        "icon_fbgL8X",
+        "icon_x9NziN",
+        "icon_XmDENx"
+      ],
+      "custom_css": [
+        ".VtlsValueIconsBlock__Heading {font-family: \"chicago\";}",
+        ".VtlsValueIconsBlock__IconWrapper {height: auto; aspect-ratio: auto;}"
+      ],
+      "name": "❤️ Square: Value Icons",
+      "settings": {
+        "icon_color": "#902c00",
+        "icon_size": 78,
+        "icon_title_size": "20",
+        "icon_title_color": "#222222",
+        "icon_description_size": "14",
+        "icon_description_color": "#222222",
+        "icons_per_row_desktop": 3,
+        "icons_mobile_layout": "2",
+        "space_between_icons": 24,
+        "heading": "",
+        "heading_size": "32",
+        "heading_style": "regular",
+        "heading_alignment": "center",
+        "heading_color": "#222222",
+        "section_width": 100,
+        "section_max_width": "",
+        "vertical_padding": 44,
+        "vertical_margin": 0,
+        "vertical_padding_mobile": 20,
+        "vertical_margin_mobile": 0,
+        "section_background_style": "color",
+        "section_background": "#f6f1e9",
+        "section_background_gradient": "linear-gradient(to right, #fed951, #ff46c7)",
+        "section_background_animation": false,
+        "overlay_color": "#222222",
+        "overlay_opacity": 0
+      }
+    },
+    "section_PzAcEG": {
+      "type": "section",
+      "blocks": {
+        "image_NDjiLN": {
+          "type": "image",
+          "name": "t:names.image",
+          "settings": {
+            "image": "shopify://shop_images/Illustration-moona-homepage_4b72f80f-b68c-4359-ab2a-0febf5ae4e85.png",
+            "link": "",
+            "image_ratio": "portrait",
+            "width": "custom",
+            "custom_width": 6,
+            "width_mobile": "custom",
+            "custom_width_mobile": 25,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_He8hCJ": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>Au cœur de chaque produit se trouve une histoire unique, animée par notre passion pour la qualité et l’innovation. Chaque article améliore votre quotidien et suscite de la joie.</h3>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "h3",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "button_djeJjR": {
+          "type": "button",
+          "settings": {
+            "label": "Acheter maintenant",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "image_NDjiLN",
+        "text_He8hCJ",
+        "button_djeJjR"
+      ],
+      "name": "t:names.pull_quote",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "medium",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-29e3a6d6-fdc0-4d24-a0a1-971a36681f58",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 64,
+        "padding-block-end": 64
+      }
+    },
+    "product_list_fa6P9H": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_YFtzcL": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h2>{{ closest.collection.title }}</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h2",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button_MWeP9V": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_YFtzcL",
+            "product_list_button_MWeP9V"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 4,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_677WP3": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 8,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_YXxMTj": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-subheading--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_JQzVV4": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_card_gallery_677WP3",
+            "product_title_YXxMTj",
+            "price_JQzVV4"
+          ]
+        }
+      },
+      "custom_css": [],
+      "name": "Featured collection",
+      "settings": {
+        "collection": "all",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 8,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-29e3a6d6-fdc0-4d24-a0a1-971a36681f58",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "tsapb_43e1018c_e47gLj": {
+      "type": "tsapb-43e1018c",
+      "blocks": {
+        "icon_877Ajw": {
+          "type": "icon",
+          "settings": {
+            "icon_type": "icon",
+            "icon": "none",
+            "font_awesome": "<svg width=\"32\" height=\"32\" viewbox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M15.1875 25.1399C15.2171 25.1463 15.2505 25.1502 15.2801 25.1502H15.2839C15.3405 25.1502 15.3958 25.1399 15.4485 25.1206C15.4652 25.1142 15.478 25.1039 15.4947 25.0975C15.5307 25.0807 15.5642 25.064 15.5937 25.0409C15.6104 25.028 15.6233 25.0152 15.6362 24.9985C15.6619 24.9753 15.685 24.9496 15.7056 24.9201C15.7184 24.9008 15.7287 24.8802 15.739 24.8609C15.7493 24.8416 15.7621 24.8275 15.7686 24.8082C15.775 24.7851 15.7788 24.7658 15.7853 24.7427C15.7853 24.7388 15.7891 24.7362 15.7891 24.7298V24.7195C15.793 24.6964 15.7956 24.6732 15.7956 24.654V24.618C15.7956 24.5948 15.7917 24.5755 15.7891 24.5524C15.7891 24.5421 15.7891 24.5293 15.7827 24.519C15.7788 24.4997 15.7698 24.4766 15.7634 24.456C15.7596 24.4457 15.757 24.4328 15.7531 24.4226C15.7428 24.4033 15.7338 24.3827 15.7197 24.3634C15.7133 24.3531 15.7094 24.3442 15.703 24.3377C15.6901 24.321 15.6773 24.3043 15.6606 24.2889C15.6541 24.2786 15.6477 24.2722 15.6374 24.2632C15.6246 24.2503 15.6079 24.2375 15.5912 24.2233C15.5809 24.213 15.568 24.2066 15.5577 24.1976C15.5449 24.1873 15.5282 24.1809 15.5115 24.1719C15.4948 24.1655 15.4819 24.1552 15.4652 24.1488C15.4613 24.1488 15.4588 24.1449 15.4523 24.1423C15.2647 24.0768 15.0705 24.0266 14.87 23.9842C13.4817 23.5472 9.56223 21.9107 7.14939 16.8987C7.02727 16.6416 6.71875 16.5336 6.46167 16.6583C6.20458 16.7805 6.09659 17.089 6.22129 17.3461C7.86286 20.7656 10.1344 22.7167 11.9803 23.8119C10.5122 23.8119 8.86422 23.8016 7.25494 23.2064C2.71326 21.525 1.05896 17.8101 1.02539 14.8869C0.991968 11.965 2.02551 8.68069 3.88174 5.73539C4.46405 7.08773 5.71098 8.34878 6.77408 9.24737C7.19186 9.59959 7.65978 9.93509 8.28839 10.3298C14.2119 14.0487 14.3406 19.5082 12.9778 22.2692C12.8531 22.5225 12.9586 22.8323 13.2118 22.957C13.465 23.0855 13.7748 22.9762 13.8995 22.723C15.4228 19.6263 15.3316 13.5383 8.83228 9.45797C8.24612 9.08904 7.81548 8.78309 7.43753 8.46045C6.43741 7.61461 4.73546 5.97304 4.5876 4.46505C4.56832 4.25166 4.41663 4.07298 4.2058 4.0177C3.99883 3.96113 3.77773 4.04341 3.65304 4.21823C1.29417 7.56567 -0.0389519 11.4594 0.000867213 14.9046C0.0471429 19.0013 2.75566 22.642 6.90142 24.1755C8.73451 24.853 10.5315 24.8504 12.1204 24.8439C13.0356 24.8439 13.8545 24.8439 14.5396 24.9686C14.9086 25.0843 15.1412 25.1293 15.1849 25.137L15.1875 25.1399Z\" fill=\"black\"></path>\n<path d=\"M27.9298 4.2225C27.8051 4.04768 27.5879 3.96926 27.3771 4.02197C27.1701 4.07853 27.0184 4.25592 26.9953 4.46932C26.8269 6.17388 24.9154 8.02375 23.7931 8.97118C23.3689 9.32982 22.8843 9.67562 22.2261 10.087C15.0031 14.6221 14.8974 21.3838 16.5893 24.8237C16.7139 25.0808 17.0237 25.1823 17.277 25.0576C17.5302 24.9329 17.6356 24.6231 17.5109 24.3699C15.9838 21.2667 16.1252 15.1325 22.7723 10.9598C23.4729 10.5188 23.9935 10.1499 24.4576 9.75912C25.6685 8.73587 27.0941 7.29485 27.715 5.75352C29.8347 9.07792 31.0124 12.7952 30.9763 16.1029C30.9403 19.3834 29.0802 23.5599 23.9793 25.4459C22.1166 26.1336 20.2077 26.1272 18.5326 26.1272H18.4632C20.5457 24.933 23.1721 22.7439 25.0577 18.8219C25.1798 18.5648 25.0744 18.2588 24.8173 18.1341C24.5602 18.012 24.2517 18.1174 24.1296 18.3745C21.4275 23.9946 17.0313 25.8276 15.4718 26.3189C15.2481 26.3652 15.0309 26.4205 14.8239 26.4963C14.82 26.4963 14.8174 26.5002 14.811 26.5027C14.7943 26.5092 14.7814 26.5156 14.7686 26.522C14.7519 26.5323 14.7352 26.5387 14.7197 26.5477C14.7095 26.5542 14.7005 26.5644 14.6863 26.5709C14.6696 26.5837 14.6529 26.5966 14.64 26.6107C14.6336 26.6172 14.6233 26.6274 14.6169 26.6364C14.604 26.6531 14.5873 26.6699 14.5745 26.6853C14.568 26.6956 14.5642 26.7046 14.5578 26.7149C14.5475 26.7341 14.5346 26.7508 14.5243 26.7714C14.5205 26.7817 14.5179 26.7907 14.5115 26.8048C14.5051 26.8241 14.4986 26.8447 14.4922 26.8678C14.4922 26.8781 14.4884 26.891 14.4858 26.9012C14.4819 26.9244 14.4794 26.9437 14.4794 26.9668V27.0028C14.4794 27.0259 14.4794 27.0491 14.4858 27.0684V27.0786C14.4858 27.0825 14.4896 27.0851 14.4896 27.0915C14.4935 27.1146 14.4999 27.1339 14.5063 27.1571C14.5128 27.1763 14.5256 27.1931 14.5359 27.2098C14.5462 27.229 14.5552 27.2496 14.5693 27.2689C14.5886 27.2985 14.6118 27.3255 14.6388 27.3473C14.6516 27.3602 14.6645 27.3769 14.6812 27.3872C14.7107 27.4103 14.7467 27.427 14.7802 27.4437C14.7969 27.4502 14.8097 27.4604 14.8264 27.4669C14.8791 27.4861 14.9344 27.4964 14.991 27.4964H14.9948C15.0244 27.4964 15.0578 27.4964 15.0874 27.4861C15.1362 27.4759 15.3972 27.4232 15.8085 27.2985C16.5824 27.1532 17.4964 27.1532 18.5235 27.1571C20.2936 27.1609 22.2951 27.1673 24.3311 26.4128C28.9383 24.7082 31.9488 20.6666 31.9991 16.1161C32.0415 12.2829 30.5542 7.9456 27.9191 4.22267L27.9298 4.2225Z\" fill=\"black\"></path>\n</svg>",
+            "icon_title": "Séléction d'artisans",
+            "icon_description": "Des bougies premium et fait mains."
+          }
+        },
+        "icon_TznDfk": {
+          "type": "icon",
+          "settings": {
+            "icon_type": "icon",
+            "icon": "none",
+            "font_awesome": "<svg width=\"32\" height=\"32\" viewbox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23.2361 24.9329C22.9861 24.9329 22.7429 24.9245 22.4929 24.8974C22.2683 24.8804 22.1045 24.6807 22.1214 24.4556C22.1383 24.2304 22.3375 24.0662 22.5622 24.0832C23.7021 24.1864 24.8607 24.0222 25.9838 23.616C28.9292 22.5513 31.0199 19.7379 31.1755 16.6027C31.2617 14.9065 30.8732 13.3644 30.0355 12.0222C28.6017 9.72853 26.494 8.44712 23.7816 8.21182H23.7647C23.3678 8.15934 23.2462 7.90035 23.2124 7.68365C23.0571 6.77462 22.7294 5.93501 22.2616 5.19867C20.8885 3.08611 18.9446 1.95195 16.4737 1.8216C14.849 1.74373 13.3459 2.19401 11.998 3.17243C10.7195 4.09836 9.82947 5.33747 9.35488 6.85249C9.27719 7.08609 9.22483 7.31968 9.16403 7.5702C9.1387 7.665 9.12012 7.76995 9.09479 7.86474C9.05088 8.04587 8.88705 8.17621 8.6979 8.17621C7.86865 8.17621 7.0918 8.29809 6.32165 8.55708C2.40851 9.83849 0.128626 13.8469 1.01668 17.874C1.09437 18.2295 1.31899 18.9049 1.34432 18.9912V18.9997C2.32048 21.3984 4.03978 22.9997 6.44997 23.7531C7.29609 24.0121 8.16079 24.134 9.01538 24.1086C9.24 24.1086 9.43085 24.2812 9.43929 24.5064C9.44773 24.7315 9.26702 24.9228 9.0424 24.9312C8.1 24.9566 7.14243 24.828 6.21689 24.5419C3.55693 23.7192 1.66378 21.9537 0.592847 19.3132C0.523601 19.1405 0.298981 18.4211 0.212848 18.0571C-0.771749 13.6153 1.7413 9.2004 6.06128 7.78899C6.80441 7.54693 7.58126 7.40812 8.36827 7.37257C8.42907 7.12204 8.48987 6.86981 8.57601 6.61084C9.10296 4.93162 10.096 3.54526 11.513 2.51606C13.0161 1.42593 14.6915 0.923165 16.5054 1.00949C19.2532 1.15676 21.4199 2.41279 22.9418 4.75893C23.4518 5.5562 23.8065 6.43815 23.9872 7.40811C26.8989 7.69419 29.162 9.09578 30.7172 11.5808C31.6495 13.0704 32.0818 14.775 31.9873 16.6457C31.815 20.1007 29.508 23.217 26.2517 24.3866C25.2671 24.7488 24.2554 24.9316 23.237 24.9316L23.2361 24.9329ZM1.34647 18.9761C1.34647 18.9846 1.35491 18.9931 1.35491 18.9931C1.35491 18.9846 1.34647 18.9761 1.34647 18.9761Z\" fill=\"black\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.8593 27.9967C15.2715 27.9967 14.7446 27.6768 14.5031 27.1401C14.4085 26.9404 14.3646 26.6983 14.3646 26.4122C14.3562 25.7284 14.3562 25.036 14.3646 24.3522C13.1115 24.0051 12.0846 23.521 11.2115 22.871C10.166 22.0923 9.33682 20.9751 8.87913 19.7106C8.49913 18.6712 8.39611 17.4423 8.42144 16.9057C8.42989 16.7922 8.47379 16.689 8.55993 16.6196C8.63762 16.5502 8.75077 16.5062 8.86224 16.5163C10.8061 16.6382 12.4477 17.3915 13.7517 18.7677C13.6132 17.8756 13.6132 17.0106 13.7517 16.1964C14.0017 14.7068 14.7025 13.3136 15.8341 12.0407C15.9118 11.9543 16.0249 11.9019 16.1449 11.9019C16.2665 11.9019 16.3779 11.9628 16.4556 12.0491C18.0279 13.9535 18.641 16.2302 18.2948 18.8371C19.6341 17.4169 21.2672 16.6382 23.1756 16.5163C23.2888 16.5078 23.4002 16.5518 23.4779 16.6297C23.5641 16.7076 23.608 16.821 23.608 16.9327C23.608 17.0106 23.608 17.0884 23.6164 17.1663C23.6249 17.3661 23.6249 17.5641 23.5995 17.7808C23.5387 18.2141 23.4526 18.6644 23.3411 19.157C23.0642 20.3267 22.4595 21.3559 21.4918 22.292C20.7656 22.9928 19.9364 23.5209 19.021 23.868C18.4856 24.0762 17.9334 24.2404 17.4048 24.4046L17.3879 24.413V26.4918C17.3879 27.2281 16.9302 27.8071 16.2124 27.9645C16.0925 27.9898 15.9709 28 15.8577 28L15.8593 27.9967ZM9.24209 17.3814C9.27756 17.9434 9.39747 18.7661 9.64743 19.4331C10.0528 20.5503 10.779 21.5372 11.7028 22.2126C12.5151 22.8186 13.4997 23.2773 14.709 23.5973C15.0197 23.6836 15.1836 23.9003 15.1836 24.2202C15.1751 24.9481 15.1751 25.6827 15.1836 26.4106C15.1836 26.5748 15.2089 26.7052 15.2444 26.7915C15.3997 27.1284 15.746 27.2079 16.0314 27.147C16.153 27.1216 16.5583 26.9912 16.5583 26.48V24.2541C16.5583 23.8647 16.7914 23.7174 16.9907 23.6565L17.163 23.604C17.7068 23.4398 18.2168 23.2841 18.7269 23.0844C19.5392 22.7814 20.2823 22.3057 20.9207 21.6811C21.7753 20.8584 22.3022 19.9663 22.537 18.954C22.6501 18.4868 22.7278 18.0619 22.7785 17.6557C22.7869 17.5609 22.7954 17.4644 22.7954 17.3611C20.7907 17.6116 19.1322 18.7288 17.8704 20.6942C17.7573 20.8668 17.5428 20.9278 17.3604 20.8499C17.1797 20.7636 17.075 20.5638 17.1358 20.3658C17.9481 17.4305 17.6188 14.9979 16.1157 12.9464C14.3626 15.1115 14.008 17.578 15.0179 20.4793C15.0871 20.679 14.9926 20.8957 14.8017 20.9905C14.6109 21.0769 14.3862 21.0074 14.2748 20.8263C13.0402 18.7747 11.38 17.6405 9.23872 17.3816L9.24209 17.3814Z\" fill=\"black\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M20.0747 8.02244C19.9717 8.02244 19.8585 7.97843 19.7808 7.90056C18.5024 6.59376 17.1631 5.94374 15.79 5.96065C13.7262 5.98604 12.2653 7.54505 12.2484 7.56199C12.093 7.72619 11.833 7.73465 11.6692 7.58738C11.5053 7.43165 11.4969 7.17096 11.6438 7.00678C11.7131 6.92892 13.3546 5.18032 15.7647 5.14474C17.3708 5.11935 18.9178 5.854 20.3601 7.32672C20.5155 7.49092 20.5155 7.75161 20.3517 7.90732C20.2824 7.97673 20.1794 8.02074 20.0747 8.02074L20.0747 8.02244Z\" fill=\"black\"></path>\n</svg>",
+            "icon_title": "Key Benefit",
+            "icon_description": "Describe how the benefit brings value"
+          }
+        },
+        "icon_Tze6jF": {
+          "type": "icon",
+          "settings": {
+            "icon_type": "icon",
+            "icon": "none",
+            "font_awesome": "<svg width=\"32\" height=\"32\" viewbox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23.2361 24.9329C22.9861 24.9329 22.7429 24.9245 22.4929 24.8974C22.2683 24.8804 22.1045 24.6807 22.1214 24.4556C22.1383 24.2304 22.3375 24.0662 22.5622 24.0832C23.7021 24.1864 24.8607 24.0222 25.9838 23.616C28.9292 22.5513 31.0199 19.7379 31.1755 16.6027C31.2617 14.9065 30.8732 13.3644 30.0355 12.0222C28.6017 9.72853 26.494 8.44712 23.7816 8.21182H23.7647C23.3678 8.15934 23.2462 7.90035 23.2124 7.68365C23.0571 6.77462 22.7294 5.93501 22.2616 5.19867C20.8885 3.08611 18.9446 1.95195 16.4737 1.8216C14.849 1.74373 13.3459 2.19401 11.998 3.17243C10.7195 4.09836 9.82947 5.33747 9.35488 6.85249C9.27719 7.08609 9.22483 7.31968 9.16403 7.5702C9.1387 7.665 9.12012 7.76995 9.09479 7.86474C9.05088 8.04587 8.88705 8.17621 8.6979 8.17621C7.86865 8.17621 7.0918 8.29809 6.32165 8.55708C2.40851 9.83849 0.128626 13.8469 1.01668 17.874C1.09437 18.2295 1.31899 18.9049 1.34432 18.9912V18.9997C2.32048 21.3984 4.03978 22.9997 6.44997 23.7531C7.29609 24.0121 8.16079 24.134 9.01538 24.1086C9.24 24.1086 9.43085 24.2812 9.43929 24.5064C9.44773 24.7315 9.26702 24.9228 9.0424 24.9312C8.1 24.9566 7.14243 24.828 6.21689 24.5419C3.55693 23.7192 1.66378 21.9537 0.592847 19.3132C0.523601 19.1405 0.298981 18.4211 0.212848 18.0571C-0.771749 13.6153 1.7413 9.2004 6.06128 7.78899C6.80441 7.54693 7.58126 7.40812 8.36827 7.37257C8.42907 7.12204 8.48987 6.86981 8.57601 6.61084C9.10296 4.93162 10.096 3.54526 11.513 2.51606C13.0161 1.42593 14.6915 0.923165 16.5054 1.00949C19.2532 1.15676 21.4199 2.41279 22.9418 4.75893C23.4518 5.5562 23.8065 6.43815 23.9872 7.40811C26.8989 7.69419 29.162 9.09578 30.7172 11.5808C31.6495 13.0704 32.0818 14.775 31.9873 16.6457C31.815 20.1007 29.508 23.217 26.2517 24.3866C25.2671 24.7488 24.2554 24.9316 23.237 24.9316L23.2361 24.9329ZM1.34647 18.9761C1.34647 18.9846 1.35491 18.9931 1.35491 18.9931C1.35491 18.9846 1.34647 18.9761 1.34647 18.9761Z\" fill=\"black\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.8593 27.9967C15.2715 27.9967 14.7446 27.6768 14.5031 27.1401C14.4085 26.9404 14.3646 26.6983 14.3646 26.4122C14.3562 25.7284 14.3562 25.036 14.3646 24.3522C13.1115 24.0051 12.0846 23.521 11.2115 22.871C10.166 22.0923 9.33682 20.9751 8.87913 19.7106C8.49913 18.6712 8.39611 17.4423 8.42144 16.9057C8.42989 16.7922 8.47379 16.689 8.55993 16.6196C8.63762 16.5502 8.75077 16.5062 8.86224 16.5163C10.8061 16.6382 12.4477 17.3915 13.7517 18.7677C13.6132 17.8756 13.6132 17.0106 13.7517 16.1964C14.0017 14.7068 14.7025 13.3136 15.8341 12.0407C15.9118 11.9543 16.0249 11.9019 16.1449 11.9019C16.2665 11.9019 16.3779 11.9628 16.4556 12.0491C18.0279 13.9535 18.641 16.2302 18.2948 18.8371C19.6341 17.4169 21.2672 16.6382 23.1756 16.5163C23.2888 16.5078 23.4002 16.5518 23.4779 16.6297C23.5641 16.7076 23.608 16.821 23.608 16.9327C23.608 17.0106 23.608 17.0884 23.6164 17.1663C23.6249 17.3661 23.6249 17.5641 23.5995 17.7808C23.5387 18.2141 23.4526 18.6644 23.3411 19.157C23.0642 20.3267 22.4595 21.3559 21.4918 22.292C20.7656 22.9928 19.9364 23.5209 19.021 23.868C18.4856 24.0762 17.9334 24.2404 17.4048 24.4046L17.3879 24.413V26.4918C17.3879 27.2281 16.9302 27.8071 16.2124 27.9645C16.0925 27.9898 15.9709 28 15.8577 28L15.8593 27.9967ZM9.24209 17.3814C9.27756 17.9434 9.39747 18.7661 9.64743 19.4331C10.0528 20.5503 10.779 21.5372 11.7028 22.2126C12.5151 22.8186 13.4997 23.2773 14.709 23.5973C15.0197 23.6836 15.1836 23.9003 15.1836 24.2202C15.1751 24.9481 15.1751 25.6827 15.1836 26.4106C15.1836 26.5748 15.2089 26.7052 15.2444 26.7915C15.3997 27.1284 15.746 27.2079 16.0314 27.147C16.153 27.1216 16.5583 26.9912 16.5583 26.48V24.2541C16.5583 23.8647 16.7914 23.7174 16.9907 23.6565L17.163 23.604C17.7068 23.4398 18.2168 23.2841 18.7269 23.0844C19.5392 22.7814 20.2823 22.3057 20.9207 21.6811C21.7753 20.8584 22.3022 19.9663 22.537 18.954C22.6501 18.4868 22.7278 18.0619 22.7785 17.6557C22.7869 17.5609 22.7954 17.4644 22.7954 17.3611C20.7907 17.6116 19.1322 18.7288 17.8704 20.6942C17.7573 20.8668 17.5428 20.9278 17.3604 20.8499C17.1797 20.7636 17.075 20.5638 17.1358 20.3658C17.9481 17.4305 17.6188 14.9979 16.1157 12.9464C14.3626 15.1115 14.008 17.578 15.0179 20.4793C15.0871 20.679 14.9926 20.8957 14.8017 20.9905C14.6109 21.0769 14.3862 21.0074 14.2748 20.8263C13.0402 18.7747 11.38 17.6405 9.23872 17.3816L9.24209 17.3814Z\" fill=\"black\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M20.0747 8.02244C19.9717 8.02244 19.8585 7.97843 19.7808 7.90056C18.5024 6.59376 17.1631 5.94374 15.79 5.96065C13.7262 5.98604 12.2653 7.54505 12.2484 7.56199C12.093 7.72619 11.833 7.73465 11.6692 7.58738C11.5053 7.43165 11.4969 7.17096 11.6438 7.00678C11.7131 6.92892 13.3546 5.18032 15.7647 5.14474C17.3708 5.11935 18.9178 5.854 20.3601 7.32672C20.5155 7.49092 20.5155 7.75161 20.3517 7.90732C20.2824 7.97673 20.1794 8.02074 20.0747 8.02074L20.0747 8.02244Z\" fill=\"black\"></path>\n</svg>",
+            "icon_title": "Objectif 0 déchets",
+            "icon_description": "Des bougies pensées pour ne pas impacter la planète."
+          }
+        },
+        "icon_6HY8Hi": {
+          "type": "icon",
+          "settings": {
+            "icon_type": "icon",
+            "icon": "none",
+            "font_awesome": "<svg width=\"32\" height=\"32\" viewbox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23.2361 24.9329C22.9861 24.9329 22.7429 24.9245 22.4929 24.8974C22.2683 24.8804 22.1045 24.6807 22.1214 24.4556C22.1383 24.2304 22.3375 24.0662 22.5622 24.0832C23.7021 24.1864 24.8607 24.0222 25.9838 23.616C28.9292 22.5513 31.0199 19.7379 31.1755 16.6027C31.2617 14.9065 30.8732 13.3644 30.0355 12.0222C28.6017 9.72853 26.494 8.44712 23.7816 8.21182H23.7647C23.3678 8.15934 23.2462 7.90035 23.2124 7.68365C23.0571 6.77462 22.7294 5.93501 22.2616 5.19867C20.8885 3.08611 18.9446 1.95195 16.4737 1.8216C14.849 1.74373 13.3459 2.19401 11.998 3.17243C10.7195 4.09836 9.82947 5.33747 9.35488 6.85249C9.27719 7.08609 9.22483 7.31968 9.16403 7.5702C9.1387 7.665 9.12012 7.76995 9.09479 7.86474C9.05088 8.04587 8.88705 8.17621 8.6979 8.17621C7.86865 8.17621 7.0918 8.29809 6.32165 8.55708C2.40851 9.83849 0.128626 13.8469 1.01668 17.874C1.09437 18.2295 1.31899 18.9049 1.34432 18.9912V18.9997C2.32048 21.3984 4.03978 22.9997 6.44997 23.7531C7.29609 24.0121 8.16079 24.134 9.01538 24.1086C9.24 24.1086 9.43085 24.2812 9.43929 24.5064C9.44773 24.7315 9.26702 24.9228 9.0424 24.9312C8.1 24.9566 7.14243 24.828 6.21689 24.5419C3.55693 23.7192 1.66378 21.9537 0.592847 19.3132C0.523601 19.1405 0.298981 18.4211 0.212848 18.0571C-0.771749 13.6153 1.7413 9.2004 6.06128 7.78899C6.80441 7.54693 7.58126 7.40812 8.36827 7.37257C8.42907 7.12204 8.48987 6.86981 8.57601 6.61084C9.10296 4.93162 10.096 3.54526 11.513 2.51606C13.0161 1.42593 14.6915 0.923165 16.5054 1.00949C19.2532 1.15676 21.4199 2.41279 22.9418 4.75893C23.4518 5.5562 23.8065 6.43815 23.9872 7.40811C26.8989 7.69419 29.162 9.09578 30.7172 11.5808C31.6495 13.0704 32.0818 14.775 31.9873 16.6457C31.815 20.1007 29.508 23.217 26.2517 24.3866C25.2671 24.7488 24.2554 24.9316 23.237 24.9316L23.2361 24.9329ZM1.34647 18.9761C1.34647 18.9846 1.35491 18.9931 1.35491 18.9931C1.35491 18.9846 1.34647 18.9761 1.34647 18.9761Z\" fill=\"black\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M15.8593 27.9967C15.2715 27.9967 14.7446 27.6768 14.5031 27.1401C14.4085 26.9404 14.3646 26.6983 14.3646 26.4122C14.3562 25.7284 14.3562 25.036 14.3646 24.3522C13.1115 24.0051 12.0846 23.521 11.2115 22.871C10.166 22.0923 9.33682 20.9751 8.87913 19.7106C8.49913 18.6712 8.39611 17.4423 8.42144 16.9057C8.42989 16.7922 8.47379 16.689 8.55993 16.6196C8.63762 16.5502 8.75077 16.5062 8.86224 16.5163C10.8061 16.6382 12.4477 17.3915 13.7517 18.7677C13.6132 17.8756 13.6132 17.0106 13.7517 16.1964C14.0017 14.7068 14.7025 13.3136 15.8341 12.0407C15.9118 11.9543 16.0249 11.9019 16.1449 11.9019C16.2665 11.9019 16.3779 11.9628 16.4556 12.0491C18.0279 13.9535 18.641 16.2302 18.2948 18.8371C19.6341 17.4169 21.2672 16.6382 23.1756 16.5163C23.2888 16.5078 23.4002 16.5518 23.4779 16.6297C23.5641 16.7076 23.608 16.821 23.608 16.9327C23.608 17.0106 23.608 17.0884 23.6164 17.1663C23.6249 17.3661 23.6249 17.5641 23.5995 17.7808C23.5387 18.2141 23.4526 18.6644 23.3411 19.157C23.0642 20.3267 22.4595 21.3559 21.4918 22.292C20.7656 22.9928 19.9364 23.5209 19.021 23.868C18.4856 24.0762 17.9334 24.2404 17.4048 24.4046L17.3879 24.413V26.4918C17.3879 27.2281 16.9302 27.8071 16.2124 27.9645C16.0925 27.9898 15.9709 28 15.8577 28L15.8593 27.9967ZM9.24209 17.3814C9.27756 17.9434 9.39747 18.7661 9.64743 19.4331C10.0528 20.5503 10.779 21.5372 11.7028 22.2126C12.5151 22.8186 13.4997 23.2773 14.709 23.5973C15.0197 23.6836 15.1836 23.9003 15.1836 24.2202C15.1751 24.9481 15.1751 25.6827 15.1836 26.4106C15.1836 26.5748 15.2089 26.7052 15.2444 26.7915C15.3997 27.1284 15.746 27.2079 16.0314 27.147C16.153 27.1216 16.5583 26.9912 16.5583 26.48V24.2541C16.5583 23.8647 16.7914 23.7174 16.9907 23.6565L17.163 23.604C17.7068 23.4398 18.2168 23.2841 18.7269 23.0844C19.5392 22.7814 20.2823 22.3057 20.9207 21.6811C21.7753 20.8584 22.3022 19.9663 22.537 18.954C22.6501 18.4868 22.7278 18.0619 22.7785 17.6557C22.7869 17.5609 22.7954 17.4644 22.7954 17.3611C20.7907 17.6116 19.1322 18.7288 17.8704 20.6942C17.7573 20.8668 17.5428 20.9278 17.3604 20.8499C17.1797 20.7636 17.075 20.5638 17.1358 20.3658C17.9481 17.4305 17.6188 14.9979 16.1157 12.9464C14.3626 15.1115 14.008 17.578 15.0179 20.4793C15.0871 20.679 14.9926 20.8957 14.8017 20.9905C14.6109 21.0769 14.3862 21.0074 14.2748 20.8263C13.0402 18.7747 11.38 17.6405 9.23872 17.3816L9.24209 17.3814Z\" fill=\"black\"></path>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M20.0747 8.02244C19.9717 8.02244 19.8585 7.97843 19.7808 7.90056C18.5024 6.59376 17.1631 5.94374 15.79 5.96065C13.7262 5.98604 12.2653 7.54505 12.2484 7.56199C12.093 7.72619 11.833 7.73465 11.6692 7.58738C11.5053 7.43165 11.4969 7.17096 11.6438 7.00678C11.7131 6.92892 13.3546 5.18032 15.7647 5.14474C17.3708 5.11935 18.9178 5.854 20.3601 7.32672C20.5155 7.49092 20.5155 7.75161 20.3517 7.90732C20.2824 7.97673 20.1794 8.02074 20.0747 8.02074L20.0747 8.02244Z\" fill=\"black\"></path>\n</svg>",
+            "icon_title": "Key Benefit",
+            "icon_description": "Describe how the benefit brings value"
+          }
+        }
+      },
+      "block_order": [
+        "icon_877Ajw",
+        "icon_TznDfk",
+        "icon_Tze6jF",
+        "icon_6HY8Hi"
+      ],
+      "name": "❤️ Square: Value Icons & Image",
+      "settings": {
+        "image_aspect_ratio": "square",
+        "image_corner_radius": 0,
+        "image_size": "medium",
+        "image": "shopify://shop_images/ChatGPT_Image_15_janv._2026_15_08_06-3.png",
+        "position_on_desktop": "center",
+        "position_on_mobile": "below",
+        "icon_color": "#222222",
+        "icon_size": 48,
+        "icon_title_size": "20",
+        "icon_title_color": "#222222",
+        "icon_description_size": "14",
+        "icon_description_color": "#222222",
+        "icons_mobile_layout": "2",
+        "heading": "",
+        "heading_size": "32",
+        "heading_style": "regular",
+        "heading_alignment": "center",
+        "heading_color": "#222222",
+        "section_width": 70,
+        "section_max_width": "",
+        "vertical_padding": 40,
+        "vertical_margin": 0,
+        "vertical_padding_mobile": 20,
+        "vertical_margin_mobile": 0,
+        "section_background_style": "color",
+        "section_background": "#f6f1e9",
+        "section_gradient": "linear-gradient(to right, #fed951, #ff46c7)",
+        "enable_animation": false
+      }
+    },
+    "tsapb_6bc49baa_k6LrdJ": {
+      "type": "tsapb-6bc49baa",
+      "blocks": {
+        "caption_Pc4NKJ": {
+          "type": "caption",
+          "settings": {
+            "caption": "Add a tagline",
+            "caption_size": "16",
+            "caption_weight": "400",
+            "caption_color": "#222222",
+            "caption_alternative_font": false,
+            "caption_font": "sans_serif_n4"
+          }
+        },
+        "heading_UEcLnp": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image & Text - Overlap",
+            "heading_size": "32",
+            "heading_color": "#222222",
+            "heading_alternative_font": false,
+            "heading_font": "sans_serif_n4"
+          }
+        },
+        "text_aNhmqp": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion</p>",
+            "description_size": "16",
+            "description_color": "#222222",
+            "description_alternative_font": false,
+            "description_font": "sans_serif_n4"
+          }
+        },
+        "buttons_inq4JT": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "primary_button_label": "Button Label",
+            "primary_button_link": "",
+            "primary_button_style": "solid",
+            "primary_text_color": "#ffffff",
+            "primary_background_color": "#000000",
+            "primary_border_color": "#222222",
+            "primary_button_corner": 8,
+            "primary_new_tab": false,
+            "secondary_button_label": "",
+            "secondary_button_link": "",
+            "secondary_button_style": "link",
+            "secondary_text_color": "#222222",
+            "secondary_background_color": "",
+            "secondary_border_color": "",
+            "secondary_button_corner": 0,
+            "secondary_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "caption_Pc4NKJ",
+        "heading_UEcLnp",
+        "text_aNhmqp",
+        "buttons_inq4JT"
+      ],
+      "custom_css": [
+        ".Vtls-template-28679998636381__tsapb_6bc49baa_k6lrdj .VtlsImgsOverlapContainer .VtlsImgsOverlap__Media--aspectRatio-square img {border-radius: 1rem;}"
+      ],
+      "name": "❤️ Square: Image & Text - Overlap",
+      "settings": {
+        "aspect_ratio": "square",
+        "image_layout": "front-top",
+        "images_border_color": "",
+        "image_position": "left",
+        "image_desktop": "shopify://shop_images/Collection-soir.png",
+        "image_mobile_position": "above",
+        "text_alignment": "left",
+        "text_box_width": 50,
+        "section_width": 70,
+        "section_max_width": "",
+        "vertical_padding": 40,
+        "vertical_margin": 0,
+        "vertical_padding_mobile": 20,
+        "vertical_margin_mobile": 0,
+        "section_background": "#f6f1e9",
+        "overlay_color": "#222222",
+        "overlay_opacity": 20
+      }
+    }
+  },
+  "order": [
+    "hero_jVaWmY",
+    "tsapb_ce7789ea_kFTq8j",
+    "section_PzAcEG",
+    "product_list_fa6P9H",
+    "tsapb_43e1018c_e47gLj",
+    "tsapb_6bc49baa_k6LrdJ"
+  ]
+}

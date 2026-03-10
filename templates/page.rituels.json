@@ -1,0 +1,39 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    },
+    "custom_liquid_Yc7qb9": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"rituels-wrap\">\n  <h1 class=\"rituels-title\">Choisis ton rituel</h1>\n  <p class=\"rituels-sub\">Sélectionne un moment puis lance l’audio.</p>\n\n  <div class=\"rituels-buttons\">\n    <button type=\"button\" class=\"rituels-btn\" data-c=\"matin\">Matin</button>\n    <button type=\"button\" class=\"rituels-btn\" data-c=\"journee\">Journée</button>\n    <button type=\"button\" class=\"rituels-btn\" data-c=\"soir\">Soir</button>\n  </div>\n\n  <div class=\"rituels-player\">\n    <div id=\"rituels-status\" class=\"rituels-status\"></div>\n    <audio id=\"rituels-audio\" controls preload=\"metadata\" style=\"width:100%\"></audio>\n  </div>\n\n  <div class=\"rituels-cta\">\n    <a class=\"rituels-link\" href=\"/collections/all\">Retour à la boutique</a>\n  </div>\n</div>\n\n<style>\n  .rituels-wrap{max-width:720px;margin:0 auto;padding:28px 16px}\n  .rituels-title{font-size:28px;margin:0 0 6px}\n  .rituels-sub{opacity:.8;margin:0 0 18px}\n  .rituels-buttons{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 18px}\n  .rituels-btn{padding:12px 16px;border-radius:12px;border:1px solid rgba(0,0,0,.12);background:#fff;cursor:pointer}\n  .rituels-btn:hover{transform:translateY(-1px)}\n  .rituels-player{border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:14px}\n  .rituels-status{font-size:14px;opacity:.75;margin-bottom:10px;min-height:18px}\n  .rituels-cta{margin-top:14px}\n  .rituels-link{text-decoration:underline}\n</style>\n\n<script>\n(function(){\n  const API_BASE = \"https://rituels.tonsite.com\"; // <-- ton Worker (Cloudflare)\n  const params = new URLSearchParams(window.location.search);\n  const token = params.get(\"t\");\n\n  const statusEl = document.getElementById(\"rituels-status\");\n  const audioEl = document.getElementById(\"rituels-audio\");\n  const btns = document.querySelectorAll(\".rituels-btn\");\n\n  function setStatus(msg){ statusEl.textContent = msg || \"\"; }\n\n  if(!token){\n    setStatus(\"Accès réservé : token manquant. Scanne le QR code présent sur ta fiche.\");\n    btns.forEach(b => b.disabled = true);\n    return;\n  }\n\n  async function loadAndPlay(c){\n    try{\n      setStatus(\"Chargement du rituel…\");\n      // Option: garder le choix dans l’URL\n      params.set(\"c\", c);\n      history.replaceState({}, \"\", `?${params.toString()}`);\n\n      const url = `${API_BASE}/api/audio?t=${encodeURIComponent(token)}&c=${encodeURIComponent(c)}`;\n      const r = await fetch(url, { method: \"GET\" });\n\n      if(!r.ok){\n        setStatus(\"Accès refusé. Vérifie ton QR code.\");\n        return;\n      }\n\n      const data = await r.json();\n      if(!data.url){\n        setStatus(\"Erreur: URL audio manquante.\");\n        return;\n      }\n\n      audioEl.src = data.url;\n      await audioEl.play();\n      setStatus(\"\");\n    } catch(e){\n      console.error(e);\n      setStatus(\"Impossible de lancer l’audio. Réessaie dans quelques secondes.\");\n    }\n  }\n\n  btns.forEach(btn => {\n    btn.addEventListener(\"click\", () => loadAndPlay(btn.dataset.c));\n  });\n\n  // Auto si c est dans l’URL\n  const c = params.get(\"c\");\n  if(c) loadAndPlay(c);\n})();\n</script>",
+        "color_scheme": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_liquid_Yc7qb9"
+  ]
+}
