@@ -9,15 +9,7 @@
 
   <div class="moona-rituel__wrap">
 
-    {%- if section.settings.logo_image != blank -%}
-      <div class="moona-rituel__logo moona-anim-1">
-        {{ section.settings.logo_image | image_url: width: 160 | image_tag: loading: 'eager', alt: shop.name }}
-      </div>
-    {%- else -%}
-      <div class="moona-rituel__logo moona-rituel__logo--text moona-anim-1">{{ shop.name }}</div>
-    {%- endif -%}
-
-    <div class="moona-rituel__greeting moona-anim-2" id="moona-greeting">
+    <div class="moona-rituel__greeting moona-anim-1" id="moona-greeting">
       {%- if section.settings.title != blank -%}
         <h1 class="moona-rituel__title">{{ section.settings.title }}</h1>
       {%- endif -%}
