@@ -1,0 +1,25 @@
+# Shopify CLI Configuration
+# https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "Moona"
+client_id = "f37afdffa0f54731614246304a9b1825"
+application_url = "https://example.com"
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "moona-9413.myshopify.com"
+
+[access_scopes]
+# Scopes Admin API
+scopes = "read_products,write_products,read_orders,write_orders,read_customers,write_customers,read_inventory,write_inventory,read_themes,write_themes,read_metaobjects,write_metaobjects,write_metaobject_definitions"
+
+[auth]
+redirect_urls = ["http://localhost:3000/auth/callback", "https://moona-worker.dejonghe.workers.dev/auth/callback"]
+
+[webhooks]
+api_version = "2024-10"
+
+[pos]
+embedded = false
+

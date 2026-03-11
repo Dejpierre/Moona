@@ -1,0 +1,13 @@
+{
+  "name": "moona-rituels-worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "secret:token": "wrangler secret put SHOPIFY_ADMIN_API_TOKEN"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

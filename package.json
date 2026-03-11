@@ -1,0 +1,14 @@
+{
+  "name": "moona-shopify",
+  "version": "1.0.0",
+  "description": "Moona - Thème Shopify avec intégrations API",
+  "scripts": {
+    "shopify:test": "node scripts/shopify-client.js",
+    "shopify:theme:push": "shopify theme push --store moona-9413.myshopify.com",
+    "shopify:theme:pull": "shopify theme pull --store moona-9413.myshopify.com",
+    "shopify:dev": "shopify theme dev --store moona-9413.myshopify.com"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
