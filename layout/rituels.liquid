@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- render 'meta-tags' -%}
+    {%- render 'stylesheets' -%}
+    {%- render 'fonts' -%}
+    {%- render 'scripts' -%}
+    {%- render 'theme-styles-variables' -%}
+    {%- render 'color-schemes' -%}
+
+    {{ content_for_header }}
+    <meta name="robots" content="noindex,nofollow">
+
+    <style>
+      .moona-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 24px;
+        pointer-events: none;
+      }
+
+      .moona-header__logo {
+        pointer-events: auto;
+        opacity: 0;
+        animation: moona-header-in 0.7s cubic-bezier(.22,1,.36,1) 0.1s forwards;
+      }
+
+      .moona-header__logo img {
+        height: 32px;
+        width: auto;
+        display: block;
+      }
+
+      .moona-header__logo--text {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        color: #3a2e22;
+        text-transform: uppercase;
+        text-decoration: none;
+      }
+
+      @keyframes moona-header-in {
+        from { opacity: 0; transform: translateY(-8px); }
+        to   { opacity: 0.75; transform: translateY(0); }
+      }
+
+      .moona-header__logo:hover { opacity: 1 !important; }
+
+      body { margin: 0; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .moona-header__logo { animation: none; opacity: 0.75; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header minimal transparent -->
+    <header class="moona-header">
+      {%- if settings.logo != blank -%}
+        <a href="{{ routes.root_url }}" class="moona-header__logo">
+          {{ settings.logo | image_url: width: 200 | image_tag: alt: shop.name, loading: 'eager' }}
+        </a>
+      {%- else -%}
+        <a href="{{ routes.root_url }}" class="moona-header__logo moona-header__logo--text">
+          {{ shop.name }}
+        </a>
+      {%- endif -%}
+    </header>
+
+    <main id="MainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+  </body>
+</html>

@@ -1,4 +1,5 @@
 {
+  "layout": "rituels",
   "sections": {
     "rituels": {
       "type": "section-rituels",
