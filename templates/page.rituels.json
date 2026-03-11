@@ -11,7 +11,7 @@
         "icon_journee": "☀️",
         "label_soir": "Soir",
         "icon_soir": "🌙",
-        "api_url": "https://rituels.tonsite.com",
+        "api_url": "https://moona-rituels.dejpierre.workers.dev",
         "show_back_link": true,
         "back_label": "← Retour à la boutique",
         "color_scheme": "",

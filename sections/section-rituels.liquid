@@ -1,45 +1,137 @@
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<div
-  class="section section--{{ section.settings.section_width }} spacing-style rituels{% if section.settings.color_scheme != blank %} color-{{ section.settings.color_scheme }}{% endif %}"
-  style="{% render 'spacing-padding', settings: section.settings %}"
->
+<div class="moona-rituel" id="moona-rituel">
 
-  <div class="rituels__inner">
+  <div class="moona-rituel__bg"></div>
 
-    {%- if section.settings.title != blank -%}
-      <h1 class="rituels__title">{{ section.settings.title }}</h1>
+  <div class="moona-rituel__wrap">
+
+    {%- if section.settings.logo_image != blank -%}
+      <div class="moona-rituel__logo">
+        {{ section.settings.logo_image | image_url: width: 160 | image_tag: loading: 'eager', alt: shop.name }}
+      </div>
+    {%- else -%}
+      <div class="moona-rituel__logo moona-rituel__logo--text">{{ shop.name }}</div>
     {%- endif -%}
 
-    {%- if section.settings.subtitle != blank -%}
-      <p class="rituels__subtitle">{{ section.settings.subtitle }}</p>
-    {%- endif -%}
-
-    <div class="rituels__buttons" role="group" aria-label="Choisir un moment">
-      <button type="button" class="rituels__btn" data-category="matin" aria-pressed="false">
-        <span class="rituels__btn-icon">{{ section.settings.icon_matin | default: '🌅' }}</span>
-        <span>{{ section.settings.label_matin | default: 'Matin' }}</span>
-      </button>
-      <button type="button" class="rituels__btn" data-category="journee" aria-pressed="false">
-        <span class="rituels__btn-icon">{{ section.settings.icon_journee | default: '☀️' }}</span>
-        <span>{{ section.settings.label_journee | default: 'Journée' }}</span>
-      </button>
-      <button type="button" class="rituels__btn" data-category="soir" aria-pressed="false">
-        <span class="rituels__btn-icon">{{ section.settings.icon_soir | default: '🌙' }}</span>
-        <span>{{ section.settings.label_soir | default: 'Soir' }}</span>
-      </button>
+    <div class="moona-rituel__greeting" id="moona-greeting">
+      {%- if section.settings.title != blank -%}
+        <h1 class="moona-rituel__title">{{ section.settings.title }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="moona-rituel__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
     </div>
 
-    <div class="rituels__player" id="rituels-player" aria-live="polite">
-      <div class="rituels__status" id="rituels-status" role="status"></div>
-      <div class="rituels__loader" id="rituels-loader" aria-hidden="true">
+    <!-- État : pas de token -->
+    <div class="moona-rituel__error" id="moona-no-token" hidden>
+      <div class="moona-rituel__error-icon">✦</div>
+      <p>{{ section.settings.no_token_msg | default: 'Scanne le QR code sur ton packaging pour accéder à tes rituels.' }}</p>
+    </div>
+
+    <!-- État : token invalide -->
+    <div class="moona-rituel__error" id="moona-invalid" hidden>
+      <div class="moona-rituel__error-icon">✦</div>
+      <p>{{ section.settings.invalid_msg | default: 'Ce lien n'est pas valide ou a expiré. Contacte-nous si tu as besoin d'aide.' }}</p>
+    </div>
+
+    <!-- Sélecteur de moment -->
+    <div class="moona-rituel__moments" id="moona-moments" hidden>
+
+      <button class="moona-rituel__moment" data-category="matin" type="button">
+        <div class="moona-rituel__moment-bg moona-rituel__moment-bg--matin"></div>
+        <div class="moona-rituel__moment-inner">
+          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_matin | default: '🌅' }}</span>
+          <span class="moona-rituel__moment-label">{{ section.settings.label_matin | default: 'Matin' }}</span>
+          <span class="moona-rituel__moment-desc">{{ section.settings.desc_matin | default: 'Pour bien démarrer ta journée' }}</span>
+        </div>
+      </button>
+
+      <button class="moona-rituel__moment" data-category="journee" type="button">
+        <div class="moona-rituel__moment-bg moona-rituel__moment-bg--journee"></div>
+        <div class="moona-rituel__moment-inner">
+          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_journee | default: '☀️' }}</span>
+          <span class="moona-rituel__moment-label">{{ section.settings.label_journee | default: 'Journée' }}</span>
+          <span class="moona-rituel__moment-desc">{{ section.settings.desc_journee | default: 'Pour te recentrer en pleine journée' }}</span>
+        </div>
+      </button>
+
+      <button class="moona-rituel__moment" data-category="soir" type="button">
+        <div class="moona-rituel__moment-bg moona-rituel__moment-bg--soir"></div>
+        <div class="moona-rituel__moment-inner">
+          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_soir | default: '🌙' }}</span>
+          <span class="moona-rituel__moment-label">{{ section.settings.label_soir | default: 'Soir' }}</span>
+          <span class="moona-rituel__moment-desc">{{ section.settings.desc_soir | default: 'Pour clore ta journée en douceur' }}</span>
+        </div>
+      </button>
+
+    </div>
+
+    <!-- Player immersif -->
+    <div class="moona-rituel__player-wrap" id="moona-player-wrap" hidden>
+
+      <div class="moona-rituel__player-header">
+        <button class="moona-rituel__back-btn" id="moona-back-btn" type="button">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ section.settings.back_to_moments | default: 'Choisir un autre rituel' }}
+        </button>
+        <span class="moona-rituel__player-moment" id="moona-player-moment"></span>
+      </div>
+
+      <!-- Loader -->
+      <div class="moona-rituel__loader" id="moona-loader" aria-label="Chargement…">
         <span></span><span></span><span></span>
       </div>
-      <audio id="rituels-audio" controls preload="metadata" style="display:none"></audio>
+
+      <!-- Player custom -->
+      <div class="moona-rituel__player" id="moona-player" hidden>
+        <div class="moona-rituel__waveform" aria-hidden="true">
+          {% for i in (1..32) %}
+            <span class="moona-rituel__bar" style="--h: {{ forloop.index | times: 7 | modulo: 60 | plus: 20 }}%"></span>
+          {% endfor %}
+        </div>
+
+        <div class="moona-rituel__controls">
+          <button class="moona-rituel__seek-btn" id="moona-rewind" type="button" aria-label="Reculer 15s">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M12 5V2L7 7l5 5V8c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="currentColor"/>
+              <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="currentColor" font-family="sans-serif">15</text>
+            </svg>
+          </button>
+
+          <button class="moona-rituel__play-btn" id="moona-play-btn" type="button" aria-label="Lecture">
+            <svg class="moona-rituel__icon-play" width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg class="moona-rituel__icon-pause" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" hidden>
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+          </button>
+
+          <button class="moona-rituel__seek-btn" id="moona-forward" type="button" aria-label="Avancer 15s">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M12 5V2l5 5-5 5V8c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z" fill="currentColor"/>
+              <text x="12" y="14.5" text-anchor="middle" font-size="5.5" fill="currentColor" font-family="sans-serif">15</text>
+            </svg>
+          </button>
+        </div>
+
+        <div class="moona-rituel__progress-wrap">
+          <span class="moona-rituel__time" id="moona-current">0:00</span>
+          <div class="moona-rituel__progress-track" id="moona-track" role="slider" aria-label="Progression" tabindex="0">
+            <div class="moona-rituel__progress-fill" id="moona-fill"></div>
+            <div class="moona-rituel__progress-thumb" id="moona-thumb"></div>
+          </div>
+          <span class="moona-rituel__time" id="moona-duration">—</span>
+        </div>
+      </div>
+
+      <audio id="moona-audio" preload="metadata"></audio>
     </div>
 
     {%- if section.settings.show_back_link -%}
-      <div class="rituels__footer">
-        <a class="rituels__back" href="{{ section.settings.back_url | default: '/collections/all' }}">
+      <div class="moona-rituel__footer">
+        <a href="{{ section.settings.back_url | default: '/' }}" class="moona-rituel__shop-link">
           {{ section.settings.back_label | default: '← Retour à la boutique' }}
         </a>
       </div>
@@ -49,248 +141,644 @@
 </div>
 
 <style>
-  .rituels__inner {
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  .rituels__title {
-    font-size: clamp(22px, 4vw, 32px);
-    margin: 0 0 8px;
-    line-height: 1.2;
-  }
-
-  .rituels__subtitle {
-    opacity: 0.7;
-    margin: 0 0 28px;
-    font-size: 15px;
-  }
-
-  /* Buttons */
-  .rituels__buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-
-  .rituels__btn {
+  /* ── Base ───────────────────────────────────────────── */
+  .moona-rituel {
+    position: relative;
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 14px 20px;
-    border-radius: 14px;
-    border: 1.5px solid rgba(var(--color-foreground-rgb, 0,0,0) / 0.12);
-    background: transparent;
-    cursor: pointer;
-    font-size: 15px;
-    font-family: inherit;
-    color: inherit;
-    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    flex: 1;
     justify-content: center;
-    min-width: 120px;
+    padding: 40px 20px 60px;
+    font-family: inherit;
+    box-sizing: border-box;
   }
 
-  .rituels__btn:hover {
-    transform: translateY(-2px);
-    border-color: rgba(var(--color-foreground-rgb, 0,0,0) / 0.3);
+  .moona-rituel__bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #fdf9f3 0%, #f5ede0 50%, #ede0d0 100%);
+    z-index: -1;
   }
 
-  .rituels__btn[aria-pressed="true"] {
-    background: var(--color-foreground, #000);
-    color: var(--color-background, #fff);
-    border-color: var(--color-foreground, #000);
-  }
-
-  .rituels__btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .rituels__btn-icon {
-    font-size: 18px;
-    line-height: 1;
-  }
-
-  /* Player */
-  .rituels__player {
-    border: 1.5px solid rgba(var(--color-foreground-rgb, 0,0,0) / 0.08);
-    border-radius: 18px;
-    padding: 20px;
-    min-height: 72px;
+  .moona-rituel__wrap {
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    justify-content: center;
+    align-items: center;
+    gap: 32px;
   }
 
-  .rituels__status {
-    font-size: 14px;
-    opacity: 0.7;
+  /* ── Logo ───────────────────────────────────────────── */
+  .moona-rituel__logo {
+    opacity: 0.85;
+  }
+
+  .moona-rituel__logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+
+  .moona-rituel__logo--text {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #3a2e22;
+    text-transform: uppercase;
+  }
+
+  /* ── Greeting ───────────────────────────────────────── */
+  .moona-rituel__greeting {
     text-align: center;
   }
 
-  .rituels__status--error {
-    opacity: 1;
-    color: #c0392b;
+  .moona-rituel__title {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 400;
+    color: #3a2e22;
+    margin: 0 0 10px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
   }
 
-  /* Loader dots */
-  .rituels__loader {
-    display: none;
-    justify-content: center;
-    gap: 6px;
-    padding: 4px 0;
+  .moona-rituel__subtitle {
+    font-size: 15px;
+    color: #7a6a56;
+    margin: 0;
+    line-height: 1.6;
   }
 
-  .rituels__loader.is-loading {
+  /* ── Error states ───────────────────────────────────── */
+  .moona-rituel__error {
+    text-align: center;
+    padding: 32px 24px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 20px;
+    border: 1px solid rgba(180,155,120,0.2);
+    backdrop-filter: blur(8px);
+    width: 100%;
+  }
+
+  .moona-rituel__error-icon {
+    font-size: 24px;
+    color: #c9a96e;
+    margin-bottom: 12px;
+  }
+
+  .moona-rituel__error p {
+    color: #7a6a56;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── Moment cards ───────────────────────────────────── */
+  .moona-rituel__moments {
     display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
   }
 
-  .rituels__loader span {
+  .moona-rituel__moment {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    background: transparent;
+    text-align: left;
+    transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s ease;
+    box-shadow: 0 2px 16px rgba(90,60,20,0.08);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .moona-rituel__moment:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(90,60,20,0.14);
+  }
+
+  .moona-rituel__moment:active {
+    transform: scale(0.98);
+  }
+
+  .moona-rituel__moment-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .moona-rituel__moment-bg--matin {
+    background: linear-gradient(110deg, #fff5e6 0%, #fde8c8 100%);
+  }
+
+  .moona-rituel__moment-bg--journee {
+    background: linear-gradient(110deg, #fff9ee 0%, #f9e8c4 100%);
+  }
+
+  .moona-rituel__moment-bg--soir {
+    background: linear-gradient(110deg, #f0ece8 0%, #dfd3c4 100%);
+  }
+
+  .moona-rituel__moment-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 24px;
+    width: 100%;
+  }
+
+  .moona-rituel__moment-emoji {
+    font-size: 32px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .moona-rituel__moment-label {
+    font-size: 17px;
+    font-weight: 500;
+    color: #3a2e22;
+    display: block;
+    letter-spacing: 0.01em;
+  }
+
+  .moona-rituel__moment-desc {
+    font-size: 13px;
+    color: #9a856a;
+    display: block;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  .moona-rituel__moment-inner > div {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Arrow indicator */
+  .moona-rituel__moment-inner::after {
+    content: '→';
+    color: #c9a96e;
+    font-size: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .moona-rituel__moment:hover .moona-rituel__moment-inner::after {
+    transform: translateX(4px);
+  }
+
+  /* ── Player wrap ────────────────────────────────────── */
+  .moona-rituel__player-wrap {
+    width: 100%;
+    background: rgba(255,255,255,0.7);
+    border-radius: 24px;
+    border: 1px solid rgba(180,155,120,0.2);
+    backdrop-filter: blur(12px);
+    padding: 28px 28px 32px;
+    box-shadow: 0 4px 32px rgba(90,60,20,0.08);
+  }
+
+  .moona-rituel__player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .moona-rituel__back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: #9a856a;
+    padding: 0;
+    transition: color 0.15s;
+  }
+
+  .moona-rituel__back-btn:hover {
+    color: #3a2e22;
+  }
+
+  .moona-rituel__player-moment {
+    font-size: 13px;
+    color: #c9a96e;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── Loader ─────────────────────────────────────────── */
+  .moona-rituel__loader {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    padding: 32px 0;
+  }
+
+  .moona-rituel__loader span {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: currentColor;
-    opacity: 0.3;
-    animation: rituels-bounce 1.2s infinite ease-in-out;
+    background: #c9a96e;
+    animation: moona-bounce 1.2s ease-in-out infinite;
   }
 
-  .rituels__loader span:nth-child(2) { animation-delay: 0.2s; }
-  .rituels__loader span:nth-child(3) { animation-delay: 0.4s; }
+  .moona-rituel__loader span:nth-child(2) { animation-delay: 0.2s; }
+  .moona-rituel__loader span:nth-child(3) { animation-delay: 0.4s; }
 
-  @keyframes rituels-bounce {
-    0%, 80%, 100% { transform: scale(0.6); opacity: 0.2; }
-    40% { transform: scale(1); opacity: 0.8; }
+  @keyframes moona-bounce {
+    0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
+    40% { transform: scale(1.1); opacity: 1; }
   }
 
-  audio {
-    width: 100%;
-    border-radius: 8px;
+  /* ── Waveform décoration ────────────────────────────── */
+  .moona-rituel__waveform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 48px;
+    margin-bottom: 24px;
   }
 
-  /* Footer */
-  .rituels__footer {
-    margin-top: 20px;
+  .moona-rituel__bar {
+    display: block;
+    width: 3px;
+    height: var(--h, 40%);
+    background: linear-gradient(to top, #e8d4b8, #c9a96e);
+    border-radius: 2px;
+    opacity: 0.6;
+    animation: moona-wave 2s ease-in-out infinite;
+    animation-delay: calc(var(--h) * -0.02s);
+  }
+
+  .moona-rituel__player.is-playing .moona-rituel__bar {
+    opacity: 1;
+  }
+
+  @keyframes moona-wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+  }
+
+  /* ── Contrôles ─────────────────────────────────────── */
+  .moona-rituel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  .moona-rituel__play-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #3a2e22;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fdf9f3;
+    transition: transform 0.18s ease, background 0.18s ease;
+    flex-shrink: 0;
+  }
+
+  .moona-rituel__play-btn:hover {
+    background: #c9a96e;
+    transform: scale(1.06);
+  }
+
+  .moona-rituel__seek-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(180,155,120,0.12);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7a6a56;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .moona-rituel__seek-btn:hover {
+    background: rgba(180,155,120,0.25);
+    color: #3a2e22;
+  }
+
+  /* ── Barre de progression ───────────────────────────── */
+  .moona-rituel__progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .moona-rituel__time {
+    font-size: 12px;
+    color: #9a856a;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    min-width: 32px;
     text-align: center;
   }
 
-  .rituels__back {
-    font-size: 14px;
-    opacity: 0.6;
-    text-decoration: underline;
-    transition: opacity 0.15s;
+  .moona-rituel__progress-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(180,155,120,0.2);
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
   }
 
-  .rituels__back:hover { opacity: 1; }
+  .moona-rituel__progress-track:focus-visible {
+    box-shadow: 0 0 0 3px rgba(201,169,110,0.35);
+  }
+
+  .moona-rituel__progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #c9a96e, #e8c98a);
+    border-radius: 4px;
+    width: 0%;
+    pointer-events: none;
+    transition: width 0.1s linear;
+  }
+
+  .moona-rituel__progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    background: #3a2e22;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s, left 0.1s linear;
+  }
+
+  .moona-rituel__progress-track:hover .moona-rituel__progress-thumb,
+  .moona-rituel__progress-track:focus-visible .moona-rituel__progress-thumb {
+    opacity: 1;
+  }
+
+  /* ── Footer ─────────────────────────────────────────── */
+  .moona-rituel__footer {
+    text-align: center;
+  }
+
+  .moona-rituel__shop-link {
+    font-size: 13px;
+    color: #9a856a;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(154,133,106,0.3);
+    padding-bottom: 1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .moona-rituel__shop-link:hover {
+    color: #3a2e22;
+    border-color: #3a2e22;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (min-width: 640px) {
+    .moona-rituel__moments {
+      flex-direction: row;
+    }
+
+    .moona-rituel__moment {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .moona-rituel__moment-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 24px 20px;
+    }
+
+    .moona-rituel__moment-inner::after {
+      content: none;
+    }
+
+    .moona-rituel__moment-emoji {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+  }
 </style>
 
 <script>
 (function () {
   const API_BASE = {{ section.settings.api_url | json }};
-  const params = new URLSearchParams(window.location.search);
 
-  // Token : URL en priorité, sinon sessionStorage (survit à la navigation)
+  /* ── DOM ─────────────────────────────────────────────── */
+  const noTokenEl   = document.getElementById('moona-no-token');
+  const invalidEl   = document.getElementById('moona-invalid');
+  const momentsEl   = document.getElementById('moona-moments');
+  const playerWrap  = document.getElementById('moona-player-wrap');
+  const loaderEl    = document.getElementById('moona-loader');
+  const playerEl    = document.getElementById('moona-player');
+  const audioEl     = document.getElementById('moona-audio');
+  const playBtn     = document.getElementById('moona-play-btn');
+  const iconPlay    = playBtn.querySelector('.moona-rituel__icon-play');
+  const iconPause   = playBtn.querySelector('.moona-rituel__icon-pause');
+  const rewindBtn   = document.getElementById('moona-rewind');
+  const forwardBtn  = document.getElementById('moona-forward');
+  const backBtn     = document.getElementById('moona-back-btn');
+  const momentLabel = document.getElementById('moona-player-moment');
+  const fillEl      = document.getElementById('moona-fill');
+  const thumbEl     = document.getElementById('moona-thumb');
+  const currentEl   = document.getElementById('moona-current');
+  const durationEl  = document.getElementById('moona-duration');
+  const track       = document.getElementById('moona-track');
+  const greetingEl  = document.getElementById('moona-greeting');
+
+  /* ── Token ───────────────────────────────────────────── */
+  const params = new URLSearchParams(window.location.search);
   let token = params.get('t');
   if (token) {
-    sessionStorage.setItem('rituels_token', token);
+    sessionStorage.setItem('moona_token', token);
   } else {
-    token = sessionStorage.getItem('rituels_token');
+    token = sessionStorage.getItem('moona_token');
   }
 
-  const statusEl  = document.getElementById('rituels-status');
-  const loaderEl  = document.getElementById('rituels-loader');
-  const audioEl   = document.getElementById('rituels-audio');
-  const btns      = document.querySelectorAll('.rituels__btn');
-
-  function setStatus(msg, isError = false) {
-    statusEl.textContent = msg || '';
-    statusEl.className = 'rituels__status' + (isError ? ' rituels__status--error' : '');
-  }
-
-  function setLoading(loading) {
-    loaderEl.classList.toggle('is-loading', loading);
-    loaderEl.setAttribute('aria-hidden', String(!loading));
-    btns.forEach(b => (b.disabled = loading));
-  }
-
-  function setActive(category) {
-    btns.forEach(b => {
-      const isActive = b.dataset.category === category;
-      b.setAttribute('aria-pressed', String(isActive));
-    });
-  }
-
-  // Pas de token → accès bloqué
   if (!token) {
-    setStatus('Accès réservé — scanne le QR code sur ta fiche pour accéder à tes rituels.', true);
-    btns.forEach(b => (b.disabled = true));
+    noTokenEl.hidden = false;
     return;
   }
 
-  async function loadAndPlay(category) {
+  momentsEl.hidden = false;
+
+  /* ── Moment labels ───────────────────────────────────── */
+  const momentLabels = {
+    matin:   '{{ section.settings.icon_matin | default: "🌅" }} {{ section.settings.label_matin | default: "Matin" }}',
+    journee: '{{ section.settings.icon_journee | default: "☀️" }} {{ section.settings.label_journee | default: "Journée" }}',
+    soir:    '{{ section.settings.icon_soir | default: "🌙" }} {{ section.settings.label_soir | default: "Soir" }}',
+  };
+
+  /* ── Helpers temps ───────────────────────────────────── */
+  function fmtTime(sec) {
+    if (!isFinite(sec)) return '—';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
+  /* ── Mise à jour de la barre ─────────────────────────── */
+  function updateProgress() {
+    const pct = audioEl.duration ? (audioEl.currentTime / audioEl.duration) * 100 : 0;
+    fillEl.style.width  = pct + '%';
+    thumbEl.style.left  = pct + '%';
+    currentEl.textContent = fmtTime(audioEl.currentTime);
+  }
+
+  audioEl.addEventListener('timeupdate', updateProgress);
+  audioEl.addEventListener('loadedmetadata', () => {
+    durationEl.textContent = fmtTime(audioEl.duration);
+  });
+
+  audioEl.addEventListener('play', () => {
+    iconPlay.hidden  = true;
+    iconPause.hidden = false;
+    playerEl.classList.add('is-playing');
+  });
+
+  audioEl.addEventListener('pause', () => {
+    iconPlay.hidden  = false;
+    iconPause.hidden = true;
+    playerEl.classList.remove('is-playing');
+  });
+
+  audioEl.addEventListener('ended', () => {
+    iconPlay.hidden  = false;
+    iconPause.hidden = true;
+    playerEl.classList.remove('is-playing');
+  });
+
+  /* ── Clic sur la barre ───────────────────────────────── */
+  function seekTo(e) {
+    const rect = track.getBoundingClientRect();
+    const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    if (audioEl.duration) {
+      audioEl.currentTime = pct * audioEl.duration;
+    }
+  }
+
+  let isDragging = false;
+  track.addEventListener('mousedown', e => { isDragging = true; seekTo(e); });
+  document.addEventListener('mousemove', e => { if (isDragging) seekTo(e); });
+  document.addEventListener('mouseup', () => { isDragging = false; });
+  track.addEventListener('touchstart', e => seekTo(e.touches[0]), { passive: true });
+  track.addEventListener('touchmove',  e => seekTo(e.touches[0]), { passive: true });
+
+  track.addEventListener('keydown', e => {
+    if (!audioEl.duration) return;
+    if (e.key === 'ArrowRight') audioEl.currentTime = Math.min(audioEl.duration, audioEl.currentTime + 5);
+    if (e.key === 'ArrowLeft')  audioEl.currentTime = Math.max(0, audioEl.currentTime - 5);
+  });
+
+  /* ── Boutons ─────────────────────────────────────────── */
+  playBtn.addEventListener('click', () => {
+    if (audioEl.paused) audioEl.play().catch(() => {});
+    else audioEl.pause();
+  });
+
+  rewindBtn.addEventListener('click',  () => { audioEl.currentTime = Math.max(0, audioEl.currentTime - 15); });
+  forwardBtn.addEventListener('click', () => { audioEl.currentTime = Math.min(audioEl.duration || 0, audioEl.currentTime + 15); });
+
+  backBtn.addEventListener('click', () => {
+    audioEl.pause();
+    audioEl.src = '';
+    playerWrap.hidden = true;
+    playerEl.hidden   = true;
+    loaderEl.hidden   = false;
+    momentsEl.hidden  = false;
+    greetingEl.hidden = false;
+  });
+
+  /* ── Charger un rituel ───────────────────────────────── */
+  async function loadRituel(category) {
+    momentsEl.hidden  = true;
+    greetingEl.hidden = true;
+    playerWrap.hidden = false;
+    playerEl.hidden   = true;
+    loaderEl.hidden   = false;
+    momentLabel.textContent = momentLabels[category] || category;
+
+    // Màj URL sans rechargement
+    const p = new URLSearchParams(window.location.search);
+    p.set('c', category);
+    history.replaceState({}, '', '?' + p.toString());
+
     try {
-      setLoading(true);
-      setStatus('Chargement du rituel…');
-      audioEl.style.display = 'none';
-      setActive(category);
-
-      // Garde la sélection dans l'URL sans recharger la page
-      const updatedParams = new URLSearchParams(window.location.search);
-      updatedParams.set('c', category);
-      history.replaceState({}, '', '?' + updatedParams.toString());
-
-      const url = `${API_BASE}/api/audio?t=${encodeURIComponent(token)}&c=${encodeURIComponent(category)}`;
-      const res = await fetch(url);
+      const res = await fetch(`${API_BASE}/api/audio?t=${encodeURIComponent(token)}&c=${encodeURIComponent(category)}`);
 
       if (res.status === 401 || res.status === 403) {
-        setStatus('Accès refusé — ce QR code n\'est pas valide ou a expiré.', true);
-        return;
-      }
-
-      if (!res.ok) {
-        setStatus(`Erreur serveur (${res.status}) — réessaie dans quelques instants.`, true);
+        loaderEl.hidden  = true;
+        playerWrap.hidden = true;
+        invalidEl.hidden  = false;
+        momentsEl.hidden  = true;
         return;
       }
 
       const data = await res.json();
 
       if (!data.url) {
-        setStatus('Erreur : aucun audio disponible pour ce rituel.', true);
+        loaderEl.hidden = true;
+        // Afficher un message inline dans le player
+        momentLabel.textContent = momentLabels[category];
+        playerEl.hidden = false;
         return;
       }
 
       audioEl.src = data.url;
-      audioEl.style.display = 'block';
-      setStatus('');
+      durationEl.textContent = '—';
+      fillEl.style.width = '0%';
+      thumbEl.style.left = '0%';
+      currentEl.textContent = '0:00';
 
-      // Tentative de lecture auto (bloquée sur mobile sans interaction — on gère silencieusement)
-      try {
-        await audioEl.play();
-      } catch {
-        // L'utilisateur devra appuyer sur Play — comportement normal sur mobile
-      }
+      loaderEl.hidden = true;
+      playerEl.hidden = false;
 
-    } catch (err) {
-      console.error('[Rituels]', err);
-      setStatus('Impossible de charger le rituel. Vérifie ta connexion et réessaie.', true);
-    } finally {
-      setLoading(false);
+      try { await audioEl.play(); } catch { /* mobile : l'utilisateur appuie sur play */ }
+
+    } catch {
+      loaderEl.hidden   = true;
+      playerWrap.hidden = true;
+      momentsEl.hidden  = false;
+      greetingEl.hidden = false;
     }
   }
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => loadAndPlay(btn.dataset.category));
+  /* ── Bind sur les cards ──────────────────────────────── */
+  document.querySelectorAll('.moona-rituel__moment').forEach(btn => {
+    btn.addEventListener('click', () => loadRituel(btn.dataset.category));
   });
 
-  // Auto-charge si une catégorie est déjà dans l'URL
-  const autoCategory = params.get('c');
-  if (autoCategory && ['matin', 'journee', 'soir'].includes(autoCategory)) {
-    loadAndPlay(autoCategory);
-  } else {
-    setStatus('Choisis un moment pour lancer ton rituel.');
+  /* ── Auto-play si catégorie dans l'URL ───────────────── */
+  const autoC = params.get('c');
+  if (autoC && ['matin', 'journee', 'soir'].includes(autoC)) {
+    loadRituel(autoC);
   }
 })();
 </script>
@@ -307,17 +795,22 @@
       "type": "text",
       "id": "title",
       "label": "Titre",
-      "default": "Choisis ton rituel"
+      "default": "Tes rituels Moona"
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Sous-titre",
-      "default": "Sélectionne un moment puis lance l'audio."
+      "default": "Choisis un moment de la journée pour lancer ton audio de développement personnel."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo (optionnel)"
     },
     {
       "type": "header",
-      "content": "Boutons"
+      "content": "Moments"
     },
     {
       "type": "text",
@@ -333,6 +826,12 @@
     },
     {
       "type": "text",
+      "id": "desc_matin",
+      "label": "Description Matin",
+      "default": "Pour bien démarrer ta journée"
+    },
+    {
+      "type": "text",
       "id": "label_journee",
       "label": "Label Journée",
       "default": "Journée"
@@ -342,6 +841,12 @@
       "id": "icon_journee",
       "label": "Icône Journée (emoji)",
       "default": "☀️"
+    },
+    {
+      "type": "text",
+      "id": "desc_journee",
+      "label": "Description Journée",
+      "default": "Pour te recentrer en pleine journée"
     },
     {
       "type": "text",
@@ -356,19 +861,46 @@
       "default": "🌙"
     },
     {
+      "type": "text",
+      "id": "desc_soir",
+      "label": "Description Soir",
+      "default": "Pour clore ta journée en douceur"
+    },
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "text",
+      "id": "no_token_msg",
+      "label": "Message sans token",
+      "default": "Scanne le QR code sur ton packaging pour accéder à tes rituels."
+    },
+    {
+      "type": "text",
+      "id": "invalid_msg",
+      "label": "Message token invalide",
+      "default": "Ce lien n'est pas valide ou a expiré. Contacte-nous si tu as besoin d'aide."
+    },
+    {
+      "type": "text",
+      "id": "back_to_moments",
+      "label": "Texte retour aux moments",
+      "default": "Choisir un autre rituel"
+    },
+    {
       "type": "header",
       "content": "API"
     },
     {
       "type": "text",
       "id": "api_url",
-      "label": "URL de l'API audio",
-      "info": "Ex: https://rituels.tonsite.com",
-      "default": "https://rituels.tonsite.com"
+      "label": "URL du Worker Cloudflare",
+      "default": "https://moona-rituels.dejpierre.workers.dev"
     },
     {
       "type": "header",
-      "content": "Lien retour"
+      "content": "Lien retour boutique"
     },
     {
       "type": "checkbox",
@@ -379,57 +911,13 @@
     {
       "type": "url",
       "id": "back_url",
-      "label": "URL du lien retour"
+      "label": "URL de la boutique"
     },
     {
       "type": "text",
       "id": "back_label",
-      "label": "Texte du lien retour",
+      "label": "Texte du lien",
       "default": "← Retour à la boutique"
-    },
-    {
-      "type": "header",
-      "content": "Mise en page"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Palette de couleurs",
-      "default": "scheme-1"
-    },
-    {
-      "type": "select",
-      "id": "section_width",
-      "label": "Largeur",
-      "options": [
-        { "value": "page-width", "label": "Page" },
-        { "value": "full-width", "label": "Pleine largeur" }
-      ],
-      "default": "page-width"
-    },
-    {
-      "type": "header",
-      "content": "Espacement"
-    },
-    {
-      "type": "range",
-      "id": "padding-block-start",
-      "label": "Haut",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding-block-end",
-      "label": "Bas",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 60
     }
   ],
   "presets": [
