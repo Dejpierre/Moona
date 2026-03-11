@@ -51,7 +51,6 @@ const definition = {
       name: 'Token (unique par client)',
       type: 'single_line_text_field',
       required: true,
-      validations: [{ name: 'min_length', value: '8' }],
     },
     {
       key: 'nom_client',
