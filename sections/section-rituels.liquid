@@ -1,18 +1,23 @@
 <div class="moona-rituel" id="moona-rituel">
 
-  <div class="moona-rituel__bg"></div>
+  <!-- Orbes animés en fond -->
+  <div class="moona-rituel__bg" aria-hidden="true">
+    <div class="moona-rituel__orb moona-rituel__orb--1"></div>
+    <div class="moona-rituel__orb moona-rituel__orb--2"></div>
+    <div class="moona-rituel__orb moona-rituel__orb--3"></div>
+  </div>
 
   <div class="moona-rituel__wrap">
 
     {%- if section.settings.logo_image != blank -%}
-      <div class="moona-rituel__logo">
+      <div class="moona-rituel__logo moona-anim-1">
         {{ section.settings.logo_image | image_url: width: 160 | image_tag: loading: 'eager', alt: shop.name }}
       </div>
     {%- else -%}
-      <div class="moona-rituel__logo moona-rituel__logo--text">{{ shop.name }}</div>
+      <div class="moona-rituel__logo moona-rituel__logo--text moona-anim-1">{{ shop.name }}</div>
     {%- endif -%}
 
-    <div class="moona-rituel__greeting" id="moona-greeting">
+    <div class="moona-rituel__greeting moona-anim-2" id="moona-greeting">
       {%- if section.settings.title != blank -%}
         <h1 class="moona-rituel__title">{{ section.settings.title }}</h1>
       {%- endif -%}
@@ -22,13 +27,13 @@
     </div>
 
     <!-- État : pas de token -->
-    <div class="moona-rituel__error" id="moona-no-token" hidden>
+    <div class="moona-rituel__error moona-anim-3" id="moona-no-token" hidden>
       <div class="moona-rituel__error-icon">✦</div>
       <p>{{ section.settings.no_token_msg | default: 'Scanne le QR code sur ton packaging pour accéder à tes rituels.' }}</p>
     </div>
 
     <!-- État : token invalide -->
-    <div class="moona-rituel__error" id="moona-invalid" hidden>
+    <div class="moona-rituel__error moona-anim-3" id="moona-invalid" hidden>
       <div class="moona-rituel__error-icon">✦</div>
       <p>{{ section.settings.invalid_msg | default: "Ce lien n'est pas valide ou a expiré. Contacte-nous si tu as besoin d'aide." }}</p>
     </div>
@@ -36,7 +41,7 @@
     <!-- Sélecteur de moment -->
     <div class="moona-rituel__moments" id="moona-moments" hidden>
 
-      <button class="moona-rituel__moment" data-category="matin" type="button">
+      <button class="moona-rituel__moment moona-anim-3" data-category="matin" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--matin"></div>
         <div class="moona-rituel__moment-inner">
           <span class="moona-rituel__moment-emoji">{{ section.settings.icon_matin | default: '🌅' }}</span>
@@ -45,7 +50,7 @@
         </div>
       </button>
 
-      <button class="moona-rituel__moment" data-category="journee" type="button">
+      <button class="moona-rituel__moment moona-anim-4" data-category="journee" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--journee"></div>
         <div class="moona-rituel__moment-inner">
           <span class="moona-rituel__moment-emoji">{{ section.settings.icon_journee | default: '☀️' }}</span>
@@ -54,7 +59,7 @@
         </div>
       </button>
 
-      <button class="moona-rituel__moment" data-category="soir" type="button">
+      <button class="moona-rituel__moment moona-anim-5" data-category="soir" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--soir"></div>
         <div class="moona-rituel__moment-inner">
           <span class="moona-rituel__moment-emoji">{{ section.settings.icon_soir | default: '🌙' }}</span>
@@ -130,7 +135,7 @@
     </div>
 
     {%- if section.settings.show_back_link -%}
-      <div class="moona-rituel__footer">
+      <div class="moona-rituel__footer moona-anim-6">
         <a href="{{ section.settings.back_url | default: '/' }}" class="moona-rituel__shop-link">
           {{ section.settings.back_label | default: '← Retour à la boutique' }}
         </a>
@@ -141,6 +146,75 @@
 </div>
 
 <style>
+  /* ── Keyframes ──────────────────────────────────────── */
+  @keyframes moona-fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes moona-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes moona-slide-in {
+    from { opacity: 0; transform: translateY(32px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes moona-slide-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to   { opacity: 0; transform: translateY(-20px) scale(0.97); }
+  }
+
+  @keyframes moona-orb-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%       { transform: translate(40px, -30px) scale(1.08); }
+    66%       { transform: translate(-20px, 20px) scale(0.95); }
+  }
+
+  @keyframes moona-orb-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    40%       { transform: translate(-50px, 30px) scale(1.1); }
+    70%       { transform: translate(30px, -10px) scale(0.92); }
+  }
+
+  @keyframes moona-orb-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%       { transform: translate(20px, 40px) scale(1.06); }
+  }
+
+  @keyframes moona-bounce {
+    0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
+    40%           { transform: scale(1.1); opacity: 1; }
+  }
+
+  @keyframes moona-wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50%       { transform: scaleY(1); }
+  }
+
+  /* ── Entrance animations ────────────────────────────── */
+  .moona-anim-1 { animation: moona-fade-up 0.6s cubic-bezier(.22,1,.36,1) both; animation-delay: 0.05s; }
+  .moona-anim-2 { animation: moona-fade-up 0.6s cubic-bezier(.22,1,.36,1) both; animation-delay: 0.18s; }
+  .moona-anim-3 { animation: moona-fade-up 0.6s cubic-bezier(.22,1,.36,1) both; animation-delay: 0.32s; }
+  .moona-anim-4 { animation: moona-fade-up 0.6s cubic-bezier(.22,1,.36,1) both; animation-delay: 0.44s; }
+  .moona-anim-5 { animation: moona-fade-up 0.6s cubic-bezier(.22,1,.36,1) both; animation-delay: 0.56s; }
+  .moona-anim-6 { animation: moona-fade-in 0.7s ease both; animation-delay: 0.7s; }
+
+  /* Elements cachés ne s'animent pas tant que JS ne les révèle pas */
+  [hidden] { animation: none !important; }
+
+  /* Transition states gérées par JS */
+  .moona-is-entering {
+    animation: moona-slide-in 0.45s cubic-bezier(.22,1,.36,1) both !important;
+  }
+
+  .moona-is-leaving {
+    animation: moona-slide-out 0.3s ease forwards !important;
+    pointer-events: none;
+  }
+
   /* ── Base ───────────────────────────────────────────── */
   .moona-rituel {
     position: relative;
@@ -151,13 +225,52 @@
     padding: 40px 20px 60px;
     font-family: inherit;
     box-sizing: border-box;
+    overflow: hidden;
   }
 
+  /* ── Background animé ───────────────────────────────── */
   .moona-rituel__bg {
     position: fixed;
     inset: 0;
     background: linear-gradient(160deg, #fdf9f3 0%, #f5ede0 50%, #ede0d0 100%);
     z-index: -1;
+  }
+
+  .moona-rituel__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    will-change: transform;
+  }
+
+  .moona-rituel__orb--1 {
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, #f5d9aa 0%, #f0c896 60%, transparent 100%);
+    top: -80px;
+    right: -60px;
+    animation: moona-orb-1 18s ease-in-out infinite;
+  }
+
+  .moona-rituel__orb--2 {
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, #e8c4a0 0%, #deb48c 60%, transparent 100%);
+    bottom: 60px;
+    left: -80px;
+    animation: moona-orb-2 22s ease-in-out infinite;
+  }
+
+  .moona-rituel__orb--3 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, #fde8c8 0%, #f5d9aa 60%, transparent 100%);
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: moona-orb-3 26s ease-in-out infinite;
+    opacity: 0.3;
   }
 
   .moona-rituel__wrap {
@@ -270,6 +383,11 @@
   .moona-rituel__moment-bg {
     position: absolute;
     inset: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .moona-rituel__moment:hover .moona-rituel__moment-bg {
+    opacity: 0.85;
   }
 
   .moona-rituel__moment-bg--matin {
@@ -297,6 +415,11 @@
     font-size: 32px;
     line-height: 1;
     flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+  }
+
+  .moona-rituel__moment:hover .moona-rituel__moment-emoji {
+    transform: scale(1.15) rotate(-5deg);
   }
 
   .moona-rituel__moment-label {
@@ -364,11 +487,12 @@
     font-size: 13px;
     color: #9a856a;
     padding: 0;
-    transition: color 0.15s;
+    transition: color 0.15s, transform 0.2s ease;
   }
 
   .moona-rituel__back-btn:hover {
     color: #3a2e22;
+    transform: translateX(-3px);
   }
 
   .moona-rituel__player-moment {
@@ -398,11 +522,6 @@
   .moona-rituel__loader span:nth-child(2) { animation-delay: 0.2s; }
   .moona-rituel__loader span:nth-child(3) { animation-delay: 0.4s; }
 
-  @keyframes moona-bounce {
-    0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
-    40% { transform: scale(1.1); opacity: 1; }
-  }
-
   /* ── Waveform décoration ────────────────────────────── */
   .moona-rituel__waveform {
     display: flex;
@@ -419,18 +538,14 @@
     height: var(--h, 40%);
     background: linear-gradient(to top, #e8d4b8, #c9a96e);
     border-radius: 2px;
-    opacity: 0.6;
+    opacity: 0.5;
     animation: moona-wave 2s ease-in-out infinite;
     animation-delay: calc(var(--h) * -0.02s);
+    transition: opacity 0.4s ease;
   }
 
   .moona-rituel__player.is-playing .moona-rituel__bar {
     opacity: 1;
-  }
-
-  @keyframes moona-wave {
-    0%, 100% { transform: scaleY(0.5); }
-    50% { transform: scaleY(1); }
   }
 
   /* ── Contrôles ─────────────────────────────────────── */
@@ -453,13 +568,19 @@
     align-items: center;
     justify-content: center;
     color: #fdf9f3;
-    transition: transform 0.18s ease, background 0.18s ease;
+    transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), background 0.18s ease, box-shadow 0.18s ease;
     flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(58,46,34,0.25);
   }
 
   .moona-rituel__play-btn:hover {
     background: #c9a96e;
-    transform: scale(1.06);
+    transform: scale(1.1);
+    box-shadow: 0 6px 24px rgba(201,169,110,0.4);
+  }
+
+  .moona-rituel__play-btn:active {
+    transform: scale(0.95);
   }
 
   .moona-rituel__seek-btn {
@@ -473,13 +594,14 @@
     align-items: center;
     justify-content: center;
     color: #7a6a56;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.15s, color 0.15s, transform 0.18s cubic-bezier(.34,1.56,.64,1);
     flex-shrink: 0;
   }
 
   .moona-rituel__seek-btn:hover {
     background: rgba(180,155,120,0.25);
     color: #3a2e22;
+    transform: scale(1.08);
   }
 
   /* ── Barre de progression ───────────────────────────── */
@@ -506,6 +628,11 @@
     position: relative;
     cursor: pointer;
     outline: none;
+    transition: height 0.2s ease;
+  }
+
+  .moona-rituel__progress-track:hover {
+    height: 6px;
   }
 
   .moona-rituel__progress-track:focus-visible {
@@ -532,12 +659,14 @@
     border-radius: 50%;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.15s, left 0.1s linear;
+    transition: opacity 0.15s, left 0.1s linear, transform 0.15s ease;
+    box-shadow: 0 2px 6px rgba(58,46,34,0.3);
   }
 
   .moona-rituel__progress-track:hover .moona-rituel__progress-thumb,
   .moona-rituel__progress-track:focus-visible .moona-rituel__progress-thumb {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
   }
 
   /* ── Footer ─────────────────────────────────────────── */
@@ -585,6 +714,26 @@
       margin-bottom: 4px;
     }
   }
+
+  /* Réduire orbes sur mobile */
+  @media (max-width: 480px) {
+    .moona-rituel__orb--1 { width: 280px; height: 280px; }
+    .moona-rituel__orb--2 { width: 240px; height: 240px; }
+    .moona-rituel__orb--3 { display: none; }
+  }
+
+  /* Respect des préférences motion */
+  @media (prefers-reduced-motion: reduce) {
+    .moona-anim-1, .moona-anim-2, .moona-anim-3,
+    .moona-anim-4, .moona-anim-5, .moona-anim-6 {
+      animation: none;
+      opacity: 1;
+    }
+    .moona-rituel__orb { animation: none; }
+    .moona-rituel__bar { animation: none; }
+    .moona-rituel__loader span { animation: none; opacity: 1; }
+    .moona-is-entering, .moona-is-leaving { animation: none !important; }
+  }
 </style>
 
 <script>
@@ -613,6 +762,23 @@
   const track       = document.getElementById('moona-track');
   const greetingEl  = document.getElementById('moona-greeting');
 
+  /* ── Helpers animation ───────────────────────────────── */
+  function showEl(el) {
+    el.hidden = false;
+    el.classList.remove('moona-is-leaving');
+    el.classList.add('moona-is-entering');
+    el.addEventListener('animationend', () => el.classList.remove('moona-is-entering'), { once: true });
+  }
+
+  function hideEl(el, cb) {
+    el.classList.add('moona-is-leaving');
+    el.addEventListener('animationend', () => {
+      el.classList.remove('moona-is-leaving');
+      el.hidden = true;
+      if (cb) cb();
+    }, { once: true });
+  }
+
   /* ── Token ───────────────────────────────────────────── */
   const params = new URLSearchParams(window.location.search);
   let token = params.get('t');
@@ -623,11 +789,11 @@
   }
 
   if (!token) {
-    noTokenEl.hidden = false;
+    showEl(noTokenEl);
     return;
   }
 
-  momentsEl.hidden = false;
+  showEl(momentsEl);
 
   /* ── Moment labels ───────────────────────────────────── */
   const momentLabels = {
@@ -709,20 +875,27 @@
   backBtn.addEventListener('click', () => {
     audioEl.pause();
     audioEl.src = '';
-    playerWrap.hidden = true;
-    playerEl.hidden   = true;
-    loaderEl.hidden   = false;
-    momentsEl.hidden  = false;
-    greetingEl.hidden = false;
+    hideEl(playerWrap, () => {
+      playerEl.hidden  = true;
+      loaderEl.hidden  = false;
+    });
+    showEl(greetingEl);
+    showEl(momentsEl);
   });
 
   /* ── Charger un rituel ───────────────────────────────── */
   async function loadRituel(category) {
-    momentsEl.hidden  = true;
-    greetingEl.hidden = true;
-    playerWrap.hidden = false;
-    playerEl.hidden   = true;
-    loaderEl.hidden   = false;
+    hideEl(momentsEl);
+    hideEl(greetingEl);
+
+    // Afficher le player wrap après l'animation de sortie
+    setTimeout(() => {
+      playerWrap.hidden = false;
+      playerEl.hidden   = true;
+      loaderEl.hidden   = false;
+      showEl(playerWrap);
+    }, 300);
+
     momentLabel.textContent = momentLabels[category] || category;
 
     // Màj URL sans rechargement
@@ -734,10 +907,9 @@
       const res = await fetch(`${API_BASE}/api/audio?t=${encodeURIComponent(token)}&c=${encodeURIComponent(category)}`);
 
       if (res.status === 401 || res.status === 403) {
-        loaderEl.hidden  = true;
+        loaderEl.hidden   = true;
         playerWrap.hidden = true;
-        invalidEl.hidden  = false;
-        momentsEl.hidden  = true;
+        showEl(invalidEl);
         return;
       }
 
@@ -745,9 +917,8 @@
 
       if (!data.url) {
         loaderEl.hidden = true;
-        // Afficher un message inline dans le player
         momentLabel.textContent = momentLabels[category];
-        playerEl.hidden = false;
+        showEl(playerEl);
         return;
       }
 
@@ -758,15 +929,15 @@
       currentEl.textContent = '0:00';
 
       loaderEl.hidden = true;
-      playerEl.hidden = false;
+      showEl(playerEl);
 
       try { await audioEl.play(); } catch { /* mobile : l'utilisateur appuie sur play */ }
 
     } catch {
       loaderEl.hidden   = true;
-      playerWrap.hidden = true;
-      momentsEl.hidden  = false;
-      greetingEl.hidden = false;
+      hideEl(playerWrap);
+      showEl(greetingEl);
+      showEl(momentsEl);
     }
   }
 
@@ -927,4 +1098,3 @@
     }
   ]
 }
-{% endschema %}
