@@ -36,7 +36,6 @@
       <button class="moona-rituel__moment moona-anim-3" data-category="matin" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--matin"></div>
         <div class="moona-rituel__moment-inner">
-          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_matin | default: '🌅' }}</span>
           <span class="moona-rituel__moment-label">{{ section.settings.label_matin | default: 'Matin' }}</span>
           <span class="moona-rituel__moment-desc">{{ section.settings.desc_matin | default: 'Pour bien démarrer ta journée' }}</span>
         </div>
@@ -45,7 +44,6 @@
       <button class="moona-rituel__moment moona-anim-4" data-category="journee" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--journee"></div>
         <div class="moona-rituel__moment-inner">
-          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_journee | default: '☀️' }}</span>
           <span class="moona-rituel__moment-label">{{ section.settings.label_journee | default: 'Journée' }}</span>
           <span class="moona-rituel__moment-desc">{{ section.settings.desc_journee | default: 'Pour te recentrer en pleine journée' }}</span>
         </div>
@@ -54,7 +52,6 @@
       <button class="moona-rituel__moment moona-anim-5" data-category="soir" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--soir"></div>
         <div class="moona-rituel__moment-inner">
-          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_soir | default: '🌙' }}</span>
           <span class="moona-rituel__moment-label">{{ section.settings.label_soir | default: 'Soir' }}</span>
           <span class="moona-rituel__moment-desc">{{ section.settings.desc_soir | default: 'Pour clore ta journée en douceur' }}</span>
         </div>
@@ -789,9 +786,9 @@
 
   /* ── Moment labels ───────────────────────────────────── */
   const momentLabels = {
-    matin:   '{{ section.settings.icon_matin | default: "🌅" }} {{ section.settings.label_matin | default: "Matin" }}',
-    journee: '{{ section.settings.icon_journee | default: "☀️" }} {{ section.settings.label_journee | default: "Journée" }}',
-    soir:    '{{ section.settings.icon_soir | default: "🌙" }} {{ section.settings.label_soir | default: "Soir" }}',
+    matin:   '{{ section.settings.label_matin | default: "Matin" }}',
+    journee: '{{ section.settings.label_journee | default: "Journée" }}',
+    soir:    '{{ section.settings.label_soir | default: "Soir" }}',
   };
 
   /* ── Helpers temps ───────────────────────────────────── */
