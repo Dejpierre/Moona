@@ -1,6 +1,8 @@
 <div class="moona-rituel" id="moona-rituel">
 
-  <div class="moona-rituel__bg"></div>
+  <div class="moona-rituel__bg">
+    <div class="moona-rituel__bg-orb"></div>
+  </div>
 
   <div class="moona-rituel__wrap">
 
@@ -39,27 +41,51 @@
       <button class="moona-rituel__moment" data-category="matin" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--matin"></div>
         <div class="moona-rituel__moment-inner">
-          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_matin | default: '🌅' }}</span>
-          <span class="moona-rituel__moment-label">{{ section.settings.label_matin | default: 'Matin' }}</span>
-          <span class="moona-rituel__moment-desc">{{ section.settings.desc_matin | default: 'Pour bien démarrer ta journée' }}</span>
+          <span class="moona-rituel__moment-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 20h20" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M9 20A5 5 0 0 1 19 20" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 11V9" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M20.2 13.8l1.4-1.4" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M7.8 13.8L6.4 12.4" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="moona-rituel__moment-text">
+            <span class="moona-rituel__moment-label">{{ section.settings.label_matin | default: 'Matin' }}</span>
+            <span class="moona-rituel__moment-desc">{{ section.settings.desc_matin | default: 'Pour bien démarrer ta journée' }}</span>
+          </span>
         </div>
       </button>
 
       <button class="moona-rituel__moment" data-category="journee" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--journee"></div>
         <div class="moona-rituel__moment-inner">
-          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_journee | default: '☀️' }}</span>
-          <span class="moona-rituel__moment-label">{{ section.settings.label_journee | default: 'Journée' }}</span>
-          <span class="moona-rituel__moment-desc">{{ section.settings.desc_journee | default: 'Pour te recentrer en pleine journée' }}</span>
+          <span class="moona-rituel__moment-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="4.5" stroke="#c9a96e" stroke-width="1.5"/>
+              <path d="M14 6V4M14 24v-2M6 14H4M24 14h-2" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M8.7 8.7L7.3 7.3M20.7 20.7l-1.4-1.4M19.3 8.7l1.4-1.4M7.3 20.7l1.4-1.4" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="moona-rituel__moment-text">
+            <span class="moona-rituel__moment-label">{{ section.settings.label_journee | default: 'Journée' }}</span>
+            <span class="moona-rituel__moment-desc">{{ section.settings.desc_journee | default: 'Pour te recentrer en pleine journée' }}</span>
+          </span>
         </div>
       </button>
 
       <button class="moona-rituel__moment" data-category="soir" type="button">
         <div class="moona-rituel__moment-bg moona-rituel__moment-bg--soir"></div>
         <div class="moona-rituel__moment-inner">
-          <span class="moona-rituel__moment-emoji">{{ section.settings.icon_soir | default: '🌙' }}</span>
-          <span class="moona-rituel__moment-label">{{ section.settings.label_soir | default: 'Soir' }}</span>
-          <span class="moona-rituel__moment-desc">{{ section.settings.desc_soir | default: 'Pour clore ta journée en douceur' }}</span>
+          <span class="moona-rituel__moment-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M20 15.5A8 8 0 0 1 11.5 7a8 8 0 1 0 8.5 8.5z" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="moona-rituel__moment-text">
+            <span class="moona-rituel__moment-label">{{ section.settings.label_soir | default: 'Soir' }}</span>
+            <span class="moona-rituel__moment-desc">{{ section.settings.desc_soir | default: 'Pour clore ta journée en douceur' }}</span>
+          </span>
         </div>
       </button>
 
@@ -141,6 +167,38 @@
 </div>
 
 <style>
+  /* ── Keyframes ──────────────────────────────────────── */
+  @keyframes moona-unveil {
+    from { opacity: 1; }
+    to   { opacity: 0; pointer-events: none; }
+  }
+
+  @keyframes moona-enter {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes moona-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes moona-orb-breathe {
+    0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.6; }
+    50%       { transform: translate(-50%, -50%) scale(1.18); opacity: 1;   }
+  }
+
+  /* ── Voile d'ouverture ──────────────────────────────── */
+  .moona-rituel::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 32, 20, 0.55);
+    animation: moona-unveil 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+    pointer-events: none;
+    z-index: 20;
+  }
+
   /* ── Base ───────────────────────────────────────────── */
   .moona-rituel {
     position: relative;
@@ -158,6 +216,19 @@
     inset: 0;
     background: linear-gradient(160deg, #fdf9f3 0%, #f5ede0 50%, #ede0d0 100%);
     z-index: -1;
+    overflow: hidden;
+  }
+
+  .moona-rituel__bg-orb {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vmin;
+    height: 70vmin;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.18) 0%, rgba(232,196,138,0.06) 50%, transparent 72%);
+    animation: moona-orb-breathe 7s ease-in-out infinite;
   }
 
   .moona-rituel__wrap {
@@ -172,7 +243,8 @@
 
   /* ── Logo ───────────────────────────────────────────── */
   .moona-rituel__logo {
-    opacity: 0.85;
+    opacity: 0;
+    animation: moona-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
   }
 
   .moona-rituel__logo img {
@@ -192,6 +264,8 @@
   /* ── Greeting ───────────────────────────────────────── */
   .moona-rituel__greeting {
     text-align: center;
+    opacity: 0;
+    animation: moona-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
   }
 
   .moona-rituel__title {
@@ -219,6 +293,7 @@
     border: 1px solid rgba(180,155,120,0.2);
     backdrop-filter: blur(8px);
     width: 100%;
+    animation: moona-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .moona-rituel__error-icon {
@@ -256,6 +331,18 @@
     transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s ease;
     box-shadow: 0 2px 16px rgba(90,60,20,0.08);
     -webkit-tap-highlight-color: transparent;
+    opacity: 0;
+  }
+
+  /* Animation en cascade des cartes */
+  .moona-rituel__moments.is-visible .moona-rituel__moment:nth-child(1) {
+    animation: moona-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  }
+  .moona-rituel__moments.is-visible .moona-rituel__moment:nth-child(2) {
+    animation: moona-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+  }
+  .moona-rituel__moments.is-visible .moona-rituel__moment:nth-child(3) {
+    animation: moona-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
   }
 
   .moona-rituel__moment:hover {
@@ -293,10 +380,20 @@
     width: 100%;
   }
 
-  .moona-rituel__moment-emoji {
-    font-size: 32px;
-    line-height: 1;
+  .moona-rituel__moment-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+  }
+
+  .moona-rituel__moment-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .moona-rituel__moment-label {
@@ -313,13 +410,6 @@
     display: block;
     margin-top: 3px;
     line-height: 1.4;
-  }
-
-  .moona-rituel__moment-inner > div {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
   }
 
   /* Arrow indicator */
@@ -345,6 +435,7 @@
     backdrop-filter: blur(12px);
     padding: 28px 28px 32px;
     box-shadow: 0 4px 32px rgba(90,60,20,0.08);
+    animation: moona-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .moona-rituel__player-header {
@@ -543,6 +634,8 @@
   /* ── Footer ─────────────────────────────────────────── */
   .moona-rituel__footer {
     text-align: center;
+    opacity: 0;
+    animation: moona-fade-in 0.8s ease 1.4s both;
   }
 
   .moona-rituel__shop-link {
@@ -580,8 +673,7 @@
       content: none;
     }
 
-    .moona-rituel__moment-emoji {
-      font-size: 28px;
+    .moona-rituel__moment-icon {
       margin-bottom: 4px;
     }
   }
@@ -627,13 +719,24 @@
     return;
   }
 
-  momentsEl.hidden = false;
+  showMoments();
+
+  /* ── Afficher les moments avec animation ─────────────── */
+  function showMoments() {
+    momentsEl.hidden = false;
+    momentsEl.classList.remove('is-visible');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        momentsEl.classList.add('is-visible');
+      });
+    });
+  }
 
   /* ── Moment labels ───────────────────────────────────── */
   const momentLabels = {
-    matin:   '{{ section.settings.icon_matin | default: "🌅" }} {{ section.settings.label_matin | default: "Matin" }}',
-    journee: '{{ section.settings.icon_journee | default: "☀️" }} {{ section.settings.label_journee | default: "Journée" }}',
-    soir:    '{{ section.settings.icon_soir | default: "🌙" }} {{ section.settings.label_soir | default: "Soir" }}',
+    matin:   '{{ section.settings.label_matin | default: "Matin" }}',
+    journee: '{{ section.settings.label_journee | default: "Journée" }}',
+    soir:    '{{ section.settings.label_soir | default: "Soir" }}',
   };
 
   /* ── Helpers temps ───────────────────────────────────── */
@@ -712,8 +815,8 @@
     playerWrap.hidden = true;
     playerEl.hidden   = true;
     loaderEl.hidden   = false;
-    momentsEl.hidden  = false;
     greetingEl.hidden = false;
+    showMoments();
   });
 
   /* ── Charger un rituel ───────────────────────────────── */
@@ -734,7 +837,7 @@
       const res = await fetch(`${API_BASE}/api/audio?t=${encodeURIComponent(token)}&c=${encodeURIComponent(category)}`);
 
       if (res.status === 401 || res.status === 403) {
-        loaderEl.hidden  = true;
+        loaderEl.hidden   = true;
         playerWrap.hidden = true;
         invalidEl.hidden  = false;
         momentsEl.hidden  = true;
@@ -745,7 +848,6 @@
 
       if (!data.url) {
         loaderEl.hidden = true;
-        // Afficher un message inline dans le player
         momentLabel.textContent = momentLabels[category];
         playerEl.hidden = false;
         return;
@@ -765,8 +867,8 @@
     } catch {
       loaderEl.hidden   = true;
       playerWrap.hidden = true;
-      momentsEl.hidden  = false;
       greetingEl.hidden = false;
+      showMoments();
     }
   }
 
@@ -820,12 +922,6 @@
     },
     {
       "type": "text",
-      "id": "icon_matin",
-      "label": "Icône Matin (emoji)",
-      "default": "🌅"
-    },
-    {
-      "type": "text",
       "id": "desc_matin",
       "label": "Description Matin",
       "default": "Pour bien démarrer ta journée"
@@ -838,12 +934,6 @@
     },
     {
       "type": "text",
-      "id": "icon_journee",
-      "label": "Icône Journée (emoji)",
-      "default": "☀️"
-    },
-    {
-      "type": "text",
       "id": "desc_journee",
       "label": "Description Journée",
       "default": "Pour te recentrer en pleine journée"
@@ -853,12 +943,6 @@
       "id": "label_soir",
       "label": "Label Soir",
       "default": "Soir"
-    },
-    {
-      "type": "text",
-      "id": "icon_soir",
-      "label": "Icône Soir (emoji)",
-      "default": "🌙"
     },
     {
       "type": "text",
