@@ -70,6 +70,14 @@
           {{ section.settings.back_to_moments | default: 'Choisir un autre rituel' }}
         </button>
         <span class="moona-rituel__player-moment" id="moona-player-moment"></span>
+        <button class="moona-rituel__offline-btn" id="moona-offline-btn" type="button" aria-label="Sauvegarder hors-ligne" hidden>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="moona-offline-icon-dl" aria-hidden="true">
+            <path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 19h16"/>
+          </svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="moona-offline-icon-ok" aria-hidden="true" hidden>
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </button>
       </div>
 
       <!-- Loader -->
@@ -117,6 +125,21 @@
             <div class="moona-rituel__progress-thumb" id="moona-thumb"></div>
           </div>
           <span class="moona-rituel__time" id="moona-duration">—</span>
+        </div>
+
+        <div class="moona-rituel__sleep">
+          <button class="moona-rituel__sleep-btn" id="moona-sleep-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+            </svg>
+            <span id="moona-sleep-label">Minuterie</span>
+          </button>
+          <div class="moona-rituel__sleep-opts" id="moona-sleep-opts" hidden>
+            <button class="moona-rituel__sleep-opt" data-min="15" type="button">15 min</button>
+            <button class="moona-rituel__sleep-opt" data-min="30" type="button">30 min</button>
+            <button class="moona-rituel__sleep-opt" data-min="45" type="button">45 min</button>
+            <button class="moona-rituel__sleep-opt" data-min="60" type="button">60 min</button>
+          </div>
         </div>
       </div>
 
@@ -658,6 +681,98 @@
     transform: translate(-50%, -50%) scale(1.2);
   }
 
+  /* ── Offline button ─────────────────────────────────── */
+  .moona-rituel__offline-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(180,155,120,0.1);
+    border: none;
+    cursor: pointer;
+    color: #9a856a;
+    transition: background 0.15s, color 0.15s, transform 0.18s ease;
+    flex-shrink: 0;
+  }
+
+  .moona-rituel__offline-btn:hover {
+    background: rgba(180,155,120,0.25);
+    color: #3a2e22;
+    transform: scale(1.1);
+  }
+
+  .moona-rituel__offline-btn--cached {
+    color: #6aaa85;
+    background: rgba(106,170,133,0.12);
+  }
+
+  .moona-rituel__offline-btn--loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* ── Sleep timer ────────────────────────────────────── */
+  .moona-rituel__sleep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(180,155,120,0.15);
+  }
+
+  .moona-rituel__sleep-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    color: #b8a080;
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .moona-rituel__sleep-btn:hover {
+    background: rgba(180,155,120,0.12);
+    color: #7a6a56;
+  }
+
+  .moona-rituel__sleep-btn--active {
+    color: #c9a96e;
+    background: rgba(201,169,110,0.12);
+    font-weight: 500;
+  }
+
+  .moona-rituel__sleep-opts {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .moona-rituel__sleep-opt {
+    background: rgba(180,155,120,0.1);
+    border: 1px solid rgba(180,155,120,0.2);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: #7a6a56;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .moona-rituel__sleep-opt:hover {
+    background: rgba(201,169,110,0.2);
+    color: #3a2e22;
+    border-color: rgba(201,169,110,0.4);
+  }
+
   /* ── Footer ─────────────────────────────────────────── */
   .moona-rituel__footer {
     text-align: center;
@@ -730,26 +845,32 @@
   const API_BASE = {{ section.settings.api_url | json }};
 
   /* ── DOM ─────────────────────────────────────────────── */
-  const noTokenEl   = document.getElementById('moona-no-token');
-  const invalidEl   = document.getElementById('moona-invalid');
-  const momentsEl   = document.getElementById('moona-moments');
-  const playerWrap  = document.getElementById('moona-player-wrap');
-  const loaderEl    = document.getElementById('moona-loader');
-  const playerEl    = document.getElementById('moona-player');
-  const audioEl     = document.getElementById('moona-audio');
-  const playBtn     = document.getElementById('moona-play-btn');
-  const iconPlay    = playBtn.querySelector('.moona-rituel__icon-play');
-  const iconPause   = playBtn.querySelector('.moona-rituel__icon-pause');
-  const rewindBtn   = document.getElementById('moona-rewind');
-  const forwardBtn  = document.getElementById('moona-forward');
-  const backBtn     = document.getElementById('moona-back-btn');
-  const momentLabel = document.getElementById('moona-player-moment');
-  const fillEl      = document.getElementById('moona-fill');
-  const thumbEl     = document.getElementById('moona-thumb');
-  const currentEl   = document.getElementById('moona-current');
-  const durationEl  = document.getElementById('moona-duration');
-  const track       = document.getElementById('moona-track');
-  const greetingEl  = document.getElementById('moona-greeting');
+  const noTokenEl     = document.getElementById('moona-no-token');
+  const invalidEl     = document.getElementById('moona-invalid');
+  const momentsEl     = document.getElementById('moona-moments');
+  const playerWrap    = document.getElementById('moona-player-wrap');
+  const loaderEl      = document.getElementById('moona-loader');
+  const playerEl      = document.getElementById('moona-player');
+  const audioEl       = document.getElementById('moona-audio');
+  const playBtn       = document.getElementById('moona-play-btn');
+  const iconPlay      = playBtn.querySelector('.moona-rituel__icon-play');
+  const iconPause     = playBtn.querySelector('.moona-rituel__icon-pause');
+  const rewindBtn     = document.getElementById('moona-rewind');
+  const forwardBtn    = document.getElementById('moona-forward');
+  const backBtn       = document.getElementById('moona-back-btn');
+  const momentLabel   = document.getElementById('moona-player-moment');
+  const fillEl        = document.getElementById('moona-fill');
+  const thumbEl       = document.getElementById('moona-thumb');
+  const currentEl     = document.getElementById('moona-current');
+  const durationEl    = document.getElementById('moona-duration');
+  const track         = document.getElementById('moona-track');
+  const greetingEl    = document.getElementById('moona-greeting');
+  const offlineBtn    = document.getElementById('moona-offline-btn');
+  const offlineIconDl = offlineBtn.querySelector('.moona-offline-icon-dl');
+  const offlineIconOk = offlineBtn.querySelector('.moona-offline-icon-ok');
+  const sleepBtn      = document.getElementById('moona-sleep-btn');
+  const sleepLabel    = document.getElementById('moona-sleep-label');
+  const sleepOpts     = document.getElementById('moona-sleep-opts');
 
   /* ── Helpers animation ───────────────────────────────── */
   function showEl(el) {
@@ -802,8 +923,8 @@
   /* ── Mise à jour de la barre ─────────────────────────── */
   function updateProgress() {
     const pct = audioEl.duration ? (audioEl.currentTime / audioEl.duration) * 100 : 0;
-    fillEl.style.width  = pct + '%';
-    thumbEl.style.left  = pct + '%';
+    fillEl.style.width    = pct + '%';
+    thumbEl.style.left    = pct + '%';
     currentEl.textContent = fmtTime(audioEl.currentTime);
   }
 
@@ -828,15 +949,14 @@
     iconPlay.hidden  = false;
     iconPause.hidden = true;
     playerEl.classList.remove('is-playing');
+    cancelSleepTimer();
   });
 
   /* ── Clic sur la barre ───────────────────────────────── */
   function seekTo(e) {
     const rect = track.getBoundingClientRect();
     const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    if (audioEl.duration) {
-      audioEl.currentTime = pct * audioEl.duration;
-    }
+    if (audioEl.duration) audioEl.currentTime = pct * audioEl.duration;
   }
 
   let isDragging = false;
@@ -852,7 +972,7 @@
     if (e.key === 'ArrowLeft')  audioEl.currentTime = Math.max(0, audioEl.currentTime - 5);
   });
 
-  /* ── Boutons ─────────────────────────────────────────── */
+  /* ── Boutons lecture ─────────────────────────────────── */
   playBtn.addEventListener('click', () => {
     if (audioEl.paused) audioEl.play().catch(() => {});
     else audioEl.pause();
@@ -864,20 +984,138 @@
   backBtn.addEventListener('click', () => {
     audioEl.pause();
     audioEl.src = '';
+    cancelSleepTimer();
+    sleepOpts.hidden = true;
+    offlineBtn.hidden = true;
+    if (currentBlobUrl) { URL.revokeObjectURL(currentBlobUrl); currentBlobUrl = null; }
     hideEl(playerWrap, () => {
-      playerEl.hidden  = true;
-      loaderEl.hidden  = false;
+      playerEl.hidden = true;
+      loaderEl.hidden = false;
     });
     showEl(greetingEl);
     showEl(momentsEl);
+  });
+
+  /* ── IndexedDB (cache hors-ligne) ────────────────────── */
+  const DB_NAME  = 'moona-offline';
+  const DB_STORE = 'audio';
+
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = e => e.target.result.createObjectStore(DB_STORE);
+      req.onsuccess = e => resolve(e.target.result);
+      req.onerror   = () => reject(req.error);
+    });
+  }
+
+  async function getCachedBlob(key) {
+    try {
+      const db = await openDB();
+      return await new Promise((resolve, reject) => {
+        const req = db.transaction(DB_STORE).objectStore(DB_STORE).get(key);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror   = () => reject(req.error);
+      });
+    } catch { return null; }
+  }
+
+  async function setCachedBlob(key, blob) {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const req = db.transaction(DB_STORE, 'readwrite').objectStore(DB_STORE).put(blob, key);
+      req.onsuccess = () => resolve();
+      req.onerror   = () => reject(req.error);
+    });
+  }
+
+  /* ── État hors-ligne ─────────────────────────────────── */
+  let currentCacheKey  = null;
+  let currentRemoteUrl = null;
+  let currentBlobUrl   = null;
+
+  function setOfflineState(state) {
+    // state : 'none' | 'available' | 'cached' | 'loading'
+    offlineBtn.hidden = (state === 'none');
+    offlineBtn.classList.toggle('moona-rituel__offline-btn--cached',  state === 'cached');
+    offlineBtn.classList.toggle('moona-rituel__offline-btn--loading', state === 'loading');
+    offlineIconDl.hidden = (state === 'cached' || state === 'loading');
+    offlineIconOk.hidden = (state !== 'cached');
+    const label = state === 'cached' ? 'Disponible hors-ligne' : 'Sauvegarder pour écouter hors-ligne';
+    offlineBtn.setAttribute('aria-label', label);
+    offlineBtn.title = label;
+  }
+
+  offlineBtn.addEventListener('click', async () => {
+    if (offlineBtn.classList.contains('moona-rituel__offline-btn--cached')) return;
+    if (!currentRemoteUrl || !currentCacheKey) return;
+    setOfflineState('loading');
+    try {
+      const res  = await fetch(currentRemoteUrl);
+      if (!res.ok) throw new Error();
+      const blob = await res.blob();
+      await setCachedBlob(currentCacheKey, blob);
+      setOfflineState('cached');
+    } catch {
+      setOfflineState('available');
+    }
+  });
+
+  /* ── Sleep timer ─────────────────────────────────────── */
+  let sleepTimerId   = null;
+  let sleepEndTime   = null;
+  let sleepDisplayId = null;
+
+  function startSleepTimer(minutes) {
+    cancelSleepTimer();
+    const ms = minutes * 60 * 1000;
+    sleepEndTime  = Date.now() + ms;
+    sleepTimerId  = setTimeout(() => { audioEl.pause(); cancelSleepTimer(); }, ms);
+    sleepDisplayId = setInterval(updateSleepLabel, 1000);
+    sleepBtn.classList.add('moona-rituel__sleep-btn--active');
+    sleepOpts.hidden = true;
+    updateSleepLabel();
+  }
+
+  function cancelSleepTimer() {
+    clearTimeout(sleepTimerId);
+    clearInterval(sleepDisplayId);
+    sleepTimerId = sleepEndTime = sleepDisplayId = null;
+    sleepBtn.classList.remove('moona-rituel__sleep-btn--active');
+    sleepLabel.textContent = 'Minuterie';
+  }
+
+  function updateSleepLabel() {
+    if (!sleepEndTime) return;
+    const remaining = Math.max(0, Math.ceil((sleepEndTime - Date.now()) / 1000));
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    sleepLabel.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+  }
+
+  sleepBtn.addEventListener('click', () => {
+    if (sleepTimerId) {
+      cancelSleepTimer();
+      sleepOpts.hidden = true;
+    } else {
+      sleepOpts.hidden = !sleepOpts.hidden;
+    }
+  });
+
+  document.querySelectorAll('.moona-rituel__sleep-opt').forEach(opt => {
+    opt.addEventListener('click', () => startSleepTimer(parseInt(opt.dataset.min, 10)));
   });
 
   /* ── Charger un rituel ───────────────────────────────── */
   async function loadRituel(category) {
     hideEl(momentsEl);
     hideEl(greetingEl);
+    cancelSleepTimer();
+    sleepOpts.hidden = true;
+    currentCacheKey  = `${token}_${category}`;
+    currentRemoteUrl = null;
+    if (currentBlobUrl) { URL.revokeObjectURL(currentBlobUrl); currentBlobUrl = null; }
 
-    // Afficher le player wrap après l'animation de sortie
     setTimeout(() => {
       playerWrap.hidden = false;
       playerEl.hidden   = true;
@@ -887,11 +1125,27 @@
 
     momentLabel.textContent = momentLabels[category] || category;
 
-    // Màj URL sans rechargement
     const p = new URLSearchParams(window.location.search);
     p.set('c', category);
     history.replaceState({}, '', '?' + p.toString());
 
+    /* Vérifier le cache hors-ligne d'abord */
+    const cachedBlob = await getCachedBlob(currentCacheKey);
+    if (cachedBlob) {
+      currentBlobUrl = URL.createObjectURL(cachedBlob);
+      audioEl.src    = currentBlobUrl;
+      durationEl.textContent = '—';
+      fillEl.style.width  = '0%';
+      thumbEl.style.left  = '0%';
+      currentEl.textContent = '0:00';
+      loaderEl.hidden = true;
+      setOfflineState('cached');
+      showEl(playerEl);
+      try { await audioEl.play(); } catch {}
+      return;
+    }
+
+    /* Sinon : appel API */
     try {
       const res = await fetch(`${API_BASE}/api/audio?t=${encodeURIComponent(token)}&c=${encodeURIComponent(category)}`);
 
@@ -906,24 +1160,25 @@
 
       if (!data.url) {
         loaderEl.hidden = true;
-        momentLabel.textContent = momentLabels[category];
+        setOfflineState('none');
         showEl(playerEl);
         return;
       }
 
-      audioEl.src = data.url;
+      currentRemoteUrl   = data.url;
+      audioEl.src        = data.url;
       durationEl.textContent = '—';
-      fillEl.style.width = '0%';
-      thumbEl.style.left = '0%';
+      fillEl.style.width  = '0%';
+      thumbEl.style.left  = '0%';
       currentEl.textContent = '0:00';
-
       loaderEl.hidden = true;
+      setOfflineState('available');
       showEl(playerEl);
 
-      try { await audioEl.play(); } catch { /* mobile : l'utilisateur appuie sur play */ }
+      try { await audioEl.play(); } catch {}
 
     } catch {
-      loaderEl.hidden   = true;
+      loaderEl.hidden = true;
       hideEl(playerWrap);
       showEl(greetingEl);
       showEl(momentsEl);
