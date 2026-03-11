@@ -2,7 +2,7 @@
 # https://shopify.dev/docs/apps/tools/cli/configuration
 
 name = "Moona"
-client_id = ""
+client_id = "f37afdffa0f54731614246304a9b1825"
 
 [build]
 automatically_update_urls_on_dev = true
@@ -10,7 +10,7 @@ dev_store_url = "moona-9413.myshopify.com"
 
 [access_scopes]
 # Scopes Admin API
-scopes = "read_products,write_products,read_orders,write_orders,read_customers,write_customers,read_inventory,write_inventory,read_themes,write_themes"
+scopes = "read_products,write_products,read_orders,write_orders,read_customers,write_customers,read_inventory,write_inventory,read_themes,write_themes,read_metaobjects,write_metaobjects"
 
 [auth]
 redirect_urls = ["http://localhost:3000/auth/callback"]
