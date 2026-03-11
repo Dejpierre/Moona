@@ -881,12 +881,16 @@
   }
 
   function hideEl(el, cb) {
-    el.classList.add('moona-is-leaving');
-    el.addEventListener('animationend', () => {
+    const doHide = () => {
       el.classList.remove('moona-is-leaving');
       el.hidden = true;
       if (cb) cb();
-    }, { once: true });
+    };
+    el.classList.add('moona-is-leaving');
+    // Fallback si l'animation ne se lance pas (prefers-reduced-motion, etc.)
+    const dur = parseFloat(getComputedStyle(el).animationDuration) || 0;
+    if (dur === 0) { doHide(); return; }
+    el.addEventListener('animationend', doHide, { once: true });
   }
 
   /* ── Token ───────────────────────────────────────────── */
