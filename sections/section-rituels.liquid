@@ -1,0 +1,442 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} spacing-style rituels{% if section.settings.color_scheme != blank %} color-{{ section.settings.color_scheme }}{% endif %}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+
+  <div class="rituels__inner">
+
+    {%- if section.settings.title != blank -%}
+      <h1 class="rituels__title">{{ section.settings.title }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="rituels__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="rituels__buttons" role="group" aria-label="Choisir un moment">
+      <button type="button" class="rituels__btn" data-category="matin" aria-pressed="false">
+        <span class="rituels__btn-icon">{{ section.settings.icon_matin | default: '🌅' }}</span>
+        <span>{{ section.settings.label_matin | default: 'Matin' }}</span>
+      </button>
+      <button type="button" class="rituels__btn" data-category="journee" aria-pressed="false">
+        <span class="rituels__btn-icon">{{ section.settings.icon_journee | default: '☀️' }}</span>
+        <span>{{ section.settings.label_journee | default: 'Journée' }}</span>
+      </button>
+      <button type="button" class="rituels__btn" data-category="soir" aria-pressed="false">
+        <span class="rituels__btn-icon">{{ section.settings.icon_soir | default: '🌙' }}</span>
+        <span>{{ section.settings.label_soir | default: 'Soir' }}</span>
+      </button>
+    </div>
+
+    <div class="rituels__player" id="rituels-player" aria-live="polite">
+      <div class="rituels__status" id="rituels-status" role="status"></div>
+      <div class="rituels__loader" id="rituels-loader" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <audio id="rituels-audio" controls preload="metadata" style="display:none"></audio>
+    </div>
+
+    {%- if section.settings.show_back_link -%}
+      <div class="rituels__footer">
+        <a class="rituels__back" href="{{ section.settings.back_url | default: '/collections/all' }}">
+          {{ section.settings.back_label | default: '← Retour à la boutique' }}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<style>
+  .rituels__inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .rituels__title {
+    font-size: clamp(22px, 4vw, 32px);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+
+  .rituels__subtitle {
+    opacity: 0.7;
+    margin: 0 0 28px;
+    font-size: 15px;
+  }
+
+  /* Buttons */
+  .rituels__buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .rituels__btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: 1.5px solid rgba(var(--color-foreground-rgb, 0,0,0) / 0.12);
+    background: transparent;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: inherit;
+    color: inherit;
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    flex: 1;
+    justify-content: center;
+    min-width: 120px;
+  }
+
+  .rituels__btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(var(--color-foreground-rgb, 0,0,0) / 0.3);
+  }
+
+  .rituels__btn[aria-pressed="true"] {
+    background: var(--color-foreground, #000);
+    color: var(--color-background, #fff);
+    border-color: var(--color-foreground, #000);
+  }
+
+  .rituels__btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .rituels__btn-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* Player */
+  .rituels__player {
+    border: 1.5px solid rgba(var(--color-foreground-rgb, 0,0,0) / 0.08);
+    border-radius: 18px;
+    padding: 20px;
+    min-height: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .rituels__status {
+    font-size: 14px;
+    opacity: 0.7;
+    text-align: center;
+  }
+
+  .rituels__status--error {
+    opacity: 1;
+    color: #c0392b;
+  }
+
+  /* Loader dots */
+  .rituels__loader {
+    display: none;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px 0;
+  }
+
+  .rituels__loader.is-loading {
+    display: flex;
+  }
+
+  .rituels__loader span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.3;
+    animation: rituels-bounce 1.2s infinite ease-in-out;
+  }
+
+  .rituels__loader span:nth-child(2) { animation-delay: 0.2s; }
+  .rituels__loader span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes rituels-bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.2; }
+    40% { transform: scale(1); opacity: 0.8; }
+  }
+
+  audio {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  /* Footer */
+  .rituels__footer {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .rituels__back {
+    font-size: 14px;
+    opacity: 0.6;
+    text-decoration: underline;
+    transition: opacity 0.15s;
+  }
+
+  .rituels__back:hover { opacity: 1; }
+</style>
+
+<script>
+(function () {
+  const API_BASE = {{ section.settings.api_url | json }};
+  const params = new URLSearchParams(window.location.search);
+
+  // Token : URL en priorité, sinon sessionStorage (survit à la navigation)
+  let token = params.get('t');
+  if (token) {
+    sessionStorage.setItem('rituels_token', token);
+  } else {
+    token = sessionStorage.getItem('rituels_token');
+  }
+
+  const statusEl  = document.getElementById('rituels-status');
+  const loaderEl  = document.getElementById('rituels-loader');
+  const audioEl   = document.getElementById('rituels-audio');
+  const btns      = document.querySelectorAll('.rituels__btn');
+
+  function setStatus(msg, isError = false) {
+    statusEl.textContent = msg || '';
+    statusEl.className = 'rituels__status' + (isError ? ' rituels__status--error' : '');
+  }
+
+  function setLoading(loading) {
+    loaderEl.classList.toggle('is-loading', loading);
+    loaderEl.setAttribute('aria-hidden', String(!loading));
+    btns.forEach(b => (b.disabled = loading));
+  }
+
+  function setActive(category) {
+    btns.forEach(b => {
+      const isActive = b.dataset.category === category;
+      b.setAttribute('aria-pressed', String(isActive));
+    });
+  }
+
+  // Pas de token → accès bloqué
+  if (!token) {
+    setStatus('Accès réservé — scanne le QR code sur ta fiche pour accéder à tes rituels.', true);
+    btns.forEach(b => (b.disabled = true));
+    return;
+  }
+
+  async function loadAndPlay(category) {
+    try {
+      setLoading(true);
+      setStatus('Chargement du rituel…');
+      audioEl.style.display = 'none';
+      setActive(category);
+
+      // Garde la sélection dans l'URL sans recharger la page
+      const updatedParams = new URLSearchParams(window.location.search);
+      updatedParams.set('c', category);
+      history.replaceState({}, '', '?' + updatedParams.toString());
+
+      const url = `${API_BASE}/api/audio?t=${encodeURIComponent(token)}&c=${encodeURIComponent(category)}`;
+      const res = await fetch(url);
+
+      if (res.status === 401 || res.status === 403) {
+        setStatus('Accès refusé — ce QR code n\'est pas valide ou a expiré.', true);
+        return;
+      }
+
+      if (!res.ok) {
+        setStatus(`Erreur serveur (${res.status}) — réessaie dans quelques instants.`, true);
+        return;
+      }
+
+      const data = await res.json();
+
+      if (!data.url) {
+        setStatus('Erreur : aucun audio disponible pour ce rituel.', true);
+        return;
+      }
+
+      audioEl.src = data.url;
+      audioEl.style.display = 'block';
+      setStatus('');
+
+      // Tentative de lecture auto (bloquée sur mobile sans interaction — on gère silencieusement)
+      try {
+        await audioEl.play();
+      } catch {
+        // L'utilisateur devra appuyer sur Play — comportement normal sur mobile
+      }
+
+    } catch (err) {
+      console.error('[Rituels]', err);
+      setStatus('Impossible de charger le rituel. Vérifie ta connexion et réessaie.', true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => loadAndPlay(btn.dataset.category));
+  });
+
+  // Auto-charge si une catégorie est déjà dans l'URL
+  const autoCategory = params.get('c');
+  if (autoCategory && ['matin', 'journee', 'soir'].includes(autoCategory)) {
+    loadAndPlay(autoCategory);
+  } else {
+    setStatus('Choisis un moment pour lancer ton rituel.');
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Rituels audio",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Choisis ton rituel"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Sélectionne un moment puis lance l'audio."
+    },
+    {
+      "type": "header",
+      "content": "Boutons"
+    },
+    {
+      "type": "text",
+      "id": "label_matin",
+      "label": "Label Matin",
+      "default": "Matin"
+    },
+    {
+      "type": "text",
+      "id": "icon_matin",
+      "label": "Icône Matin (emoji)",
+      "default": "🌅"
+    },
+    {
+      "type": "text",
+      "id": "label_journee",
+      "label": "Label Journée",
+      "default": "Journée"
+    },
+    {
+      "type": "text",
+      "id": "icon_journee",
+      "label": "Icône Journée (emoji)",
+      "default": "☀️"
+    },
+    {
+      "type": "text",
+      "id": "label_soir",
+      "label": "Label Soir",
+      "default": "Soir"
+    },
+    {
+      "type": "text",
+      "id": "icon_soir",
+      "label": "Icône Soir (emoji)",
+      "default": "🌙"
+    },
+    {
+      "type": "header",
+      "content": "API"
+    },
+    {
+      "type": "text",
+      "id": "api_url",
+      "label": "URL de l'API audio",
+      "info": "Ex: https://rituels.tonsite.com",
+      "default": "https://rituels.tonsite.com"
+    },
+    {
+      "type": "header",
+      "content": "Lien retour"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_link",
+      "label": "Afficher le lien retour",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "back_url",
+      "label": "URL du lien retour"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Texte du lien retour",
+      "default": "← Retour à la boutique"
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Palette de couleurs",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Largeur",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Pleine largeur" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Haut",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bas",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rituels audio",
+      "category": "Contenu"
+    }
+  ]
+}
+{% endschema %}
