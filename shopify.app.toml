@@ -3,6 +3,8 @@
 
 name = "Moona"
 client_id = "f37afdffa0f54731614246304a9b1825"
+application_url = "https://example.com"
+embedded = false
 
 [build]
 automatically_update_urls_on_dev = true
@@ -20,3 +22,4 @@ api_version = "2024-10"
 
 [pos]
 embedded = false
+
