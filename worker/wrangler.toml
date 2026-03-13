@@ -3,13 +3,9 @@ main = "index.js"
 compatibility_date = "2024-10-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Variables d'environnement (valeurs réelles à mettre via `wrangler secret put`)
-# Ne jamais mettre les vraies valeurs ici — ce fichier est commité dans git
-
-[vars]
-SHOPIFY_STORE_URL = "moona-9413.myshopify.com"
-SHOPIFY_API_VERSION = "2024-10"
-ALLOWED_ORIGIN = "https://moona-9413.myshopify.com"
+# Stores supportés : moona-9413.myshopify.com, andromeda-paris.myshopify.com
+# L'identification du store se fait via l'Origin de la requête (voir index.js)
 
 # Secrets à configurer via CLI (jamais dans ce fichier) :
-#   wrangler secret put SHOPIFY_ADMIN_API_TOKEN
+#   wrangler secret put MOONA_ADMIN_API_TOKEN
+#   wrangler secret put ANDROMEDA_ADMIN_API_TOKEN

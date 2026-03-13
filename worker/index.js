@@ -1,18 +1,33 @@
 /**
- * Cloudflare Worker — API Rituels Moona
+ * Cloudflare Worker — API Rituels (multi-store)
  *
  * GET /api/audio?t=TOKEN&c=matin|journee|soir
+ *   → identifie le store via l'Origin de la requête
  *   → valide le token dans Shopify Metaobjects
  *   → retourne { url: "https://cdn.shopify.com/..." }
  *
- * Variables d'environnement à configurer dans Cloudflare :
- *   SHOPIFY_STORE_URL        ex: moona-9413.myshopify.com
- *   SHOPIFY_ADMIN_API_TOKEN  ex: shpss_...
- *   SHOPIFY_API_VERSION      ex: 2024-10
- *   ALLOWED_ORIGIN           ex: https://moona-9413.myshopify.com
+ * Secrets à configurer dans Cloudflare (wrangler secret put) :
+ *   MOONA_ADMIN_API_TOKEN      token admin pour moona-9413.myshopify.com
+ *   ANDROMEDA_ADMIN_API_TOKEN  token admin pour andromeda-paris.myshopify.com
  */
 
+const API_VERSION = '2024-10';
+
 const VALID_CATEGORIES = ['matin', 'journee', 'soir'];
+
+// ─── Config multi-store ────────────────────────────────────────────────────────
+// Clé = Origin exact de la requête, valeur = { storeUrl, tokenEnvKey }
+
+const STORE_CONFIG = {
+  'https://moona-9413.myshopify.com': {
+    storeUrl: 'moona-9413.myshopify.com',
+    tokenEnvKey: 'MOONA_ADMIN_API_TOKEN',
+  },
+  'https://andromeda-paris.myshopify.com': {
+    storeUrl: 'andromeda-paris.myshopify.com',
+    tokenEnvKey: 'ANDROMEDA_ADMIN_API_TOKEN',
+  },
+};
 
 // ─── GraphQL query ─────────────────────────────────────────────────────────────
 
@@ -76,11 +91,8 @@ function getAudioUrl(fields, category) {
   const field = fields.find(f => f.key === fieldKey);
   if (!field) return null;
 
-  // Fichier générique (mp3, wav, etc.)
   if (field.reference?.url) return field.reference.url;
-  // Image (peu probable pour audio, mais au cas où)
   if (field.reference?.image?.url) return field.reference.image.url;
-  // Vidéo/audio Shopify
   if (field.reference?.sources?.length) {
     const preferred = field.reference.sources.find(s =>
       s.mimeType?.startsWith('audio/')
@@ -93,14 +105,14 @@ function getAudioUrl(fields, category) {
 
 // ─── Fetch Shopify metaobject ─────────────────────────────────────────────────
 
-async function fetchRituel(token, env) {
-  const url = `https://${env.SHOPIFY_STORE_URL}/admin/api/${env.SHOPIFY_API_VERSION || '2024-10'}/graphql.json`;
+async function fetchRituel(token, storeUrl, adminToken) {
+  const url = `https://${storeUrl}/admin/api/${API_VERSION}/graphql.json`;
 
   const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-Shopify-Access-Token': env.SHOPIFY_ADMIN_API_TOKEN,
+      'X-Shopify-Access-Token': adminToken,
     },
     body: JSON.stringify({
       query: QUERY,
@@ -125,15 +137,22 @@ async function fetchRituel(token, env) {
 
 export default {
   async fetch(request, env) {
-    const origin = env.ALLOWED_ORIGIN || '*';
-    const url = new URL(request.url);
+    const origin = request.headers.get('Origin') || '';
+    const storeConfig = STORE_CONFIG[origin];
 
-    // Preflight CORS
+    // Preflight CORS — répondre pour tous les origins connus
     if (request.method === 'OPTIONS') {
+      if (!storeConfig) return new Response(null, { status: 403 });
       return corsPreflightResponse(origin);
     }
 
-    // Route unique
+    // Origin non autorisé
+    if (!storeConfig) {
+      return json({ error: 'Origin non autorisé' }, 403, origin);
+    }
+
+    const url = new URL(request.url);
+
     if (url.pathname !== '/api/audio') {
       return json({ error: 'Not found' }, 404, origin);
     }
@@ -145,7 +164,6 @@ export default {
     const token    = url.searchParams.get('t')?.trim();
     const category = url.searchParams.get('c')?.trim().toLowerCase();
 
-    // Validation des paramètres
     if (!token || !category) {
       return json({ error: 'Paramètres manquants (t, c)' }, 400, origin);
     }
@@ -154,28 +172,30 @@ export default {
       return json({ error: 'Catégorie invalide' }, 400, origin);
     }
 
-    // Sécurité : token ne doit pas contenir de caractères GraphQL dangereux
     if (!/^[a-zA-Z0-9_\-]{8,64}$/.test(token)) {
       return json({ error: 'Token invalide' }, 400, origin);
     }
 
-    try {
-      const metaobject = await fetchRituel(token, env);
+    const adminToken = env[storeConfig.tokenEnvKey];
+    if (!adminToken) {
+      console.error(`[Worker] Secret manquant : ${storeConfig.tokenEnvKey}`);
+      return json({ error: 'Erreur de configuration serveur' }, 500, origin);
+    }
 
-      // Token introuvable
+    try {
+      const metaobject = await fetchRituel(token, storeConfig.storeUrl, adminToken);
+
       if (!metaobject) {
         return json({ error: 'Token non reconnu' }, 401, origin);
       }
 
       const { fields } = metaobject;
 
-      // Accès désactivé
       const actif = getFieldValue(fields, 'actif');
       if (actif === 'false') {
         return json({ error: 'Accès désactivé' }, 403, origin);
       }
 
-      // Récupère l'URL audio pour la catégorie demandée
       const audioUrl = getAudioUrl(fields, category);
 
       if (!audioUrl) {
